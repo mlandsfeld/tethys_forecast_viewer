@@ -1,0 +1,20 @@
+
+var map = new ol.Map({
+	target: 'map',
+	layers: [
+	  new ol.layer.Tile({
+		source: new ol.source.OSM(),
+	  }),
+	  new ol.layer.Image({
+		source: new ol.source.ImageWMS({
+		  url: 'https://chc-ewx2.chc.ucsb.edu:8443/geoserver/wms',
+		  params: {'LAYERS': "geoserver_app:yield_obs_ts_4"},
+		  serverType: 'geoserver',
+		}),
+	  }), 
+	],
+	view: new ol.View({
+	  center: ol.proj.fromLonLat([41, 5]),
+	  zoom: 5
+	})
+});

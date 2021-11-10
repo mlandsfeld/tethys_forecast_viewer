@@ -1,0 +1,10 @@
+2021-08-21 20:49:07.043 UTC [3713] LOG:  starting PostgreSQL 12.3 on x86_64-apple-darwin13.4.0, compiled by clang version 10.0.1 , 64-bit
+2021-08-21 20:49:07.045 UTC [3713] LOG:  listening on IPv6 address "::1", port 5432
+2021-08-21 20:49:07.045 UTC [3713] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2021-08-21 20:49:07.076 UTC [3713] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2021-08-21 20:49:07.530 UTC [3714] LOG:  database system was shut down at 2021-07-29 02:16:57 UTC
+2021-08-21 20:49:07.665 UTC [3713] LOG:  database system is ready to accept connections
+2021-09-10 23:13:30.458 UTC [3713] LOG:  received smart shutdown request
+2021-09-10 23:13:30.541 UTC [3713] LOG:  background worker "logical replication launcher" (PID 3720) exited with exit code 1
+2021-09-10 23:13:30.541 UTC [3715] LOG:  shutting down
+2021-09-10 23:13:30.632 UTC [3713] LOG:  database system is shut down
