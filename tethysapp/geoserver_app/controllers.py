@@ -189,9 +189,10 @@ def home(request):
     )
 
     model_options = [
-      ("UCSB",  "ucsb"),
-      ("RCMRD",  "rcmrd"),
-      ("SERVIR",  "servir"),
+      ("ET",  "ET"),
+      ("GB",  "GB"),
+      ("RHEAS",  "RHEAS"),
+      ("GeoCIF",  "GeoCIF"),
     ]
 
     forecast_model_options = SelectInput(
