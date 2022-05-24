@@ -36,7 +36,7 @@ console.log('WMS LAYER: ', wms_layer);
 wms_layer = wms_layer[0];
 console.log('WMS LAYER: ', wms_layer);
 
-document.getElementById("eo_message").innerHTML = wms_layer; 
+document.getElementById("eo_message").innerHTML = wms_layer;
 
 //eo_layers_test = {'LAYERS': eo_layers};
 //if (eo_layers.includes('emodis')) {
@@ -45,7 +45,7 @@ document.getElementById("eo_message").innerHTML = wms_layer;
 //}
 
 //  sessionStorage.clear(); //*** resets storage ***
-  
+
 var mv_center_lon, mv_center_lat, mv_zoom;
 var center_lon, center_lat, zoom;
 
@@ -140,7 +140,7 @@ var map_eo = new ol.Map({
         //params: {'LAYERS': eo_layers},
 		serverType: 'geoserver',
 	  }),
-	}), 
+	}),
   ],
   view: map_view
 });
@@ -165,26 +165,26 @@ function success() {
     var values = Object.keys(res.features[0].properties);
     values.sort();
     values.reverse();
-    
+
     var select = document.createElement("select");
     select.name = "pets";
     select.id = "pets"
- 
+
     for (const val of values)
     {
     	//console.log(val);
     	if (val != 'ADMIN0' && val != 'ADMIN1' && val != 'ADMIN2' && val != 'FNID'
     		&& val != 'COUNTRY' && val != 'SEASON' && val != 'MODEL') {
-    	
+
 			if( val.startsWith('LOF') || val.startsWith("HIF") ) { continue; }
 			if( val.startsWith('MN_10') || val.startsWith("MN_ALL") ) { continue; }
 
 			var option = document.createElement("option");
 			option.value = val;
 			option.text = val;
-			
+
 			if( val.charAt(0) == 'F') { i_offset = 1; }
-			
+
 			if( val.charAt(0) == 'O') {
 				var yr = val.substr(1,4);
 				option.text = yr;
@@ -200,19 +200,19 @@ function success() {
 				}
 				option.text = yr + '-' + mo + '-' + dek;
 			};
-			
+
 			select.appendChild(option);
 		};
     }
- 
+
     var label = document.createElement("label");
     label.innerHTML = "Available Dates: "
     label.htmlFor = "pets";
- 
+
     document.getElementById("container").appendChild(label).appendChild(select);
 
-    
-    
+
+
     if ( ! res.features[0].properties.hasOwnProperty(fcast_property) ) {
       console.log('fcast_property: ', fcast_property);
       document.getElementById("forecast_message").innerHTML = "No data for " + fcast_property;
@@ -242,7 +242,7 @@ if (load_fcast) {
 	  params: {'SLD': forecast_sld_file},
 	  serverType: 'geoserver',
 	});
-	
+
 	var map_fcast = new ol.Map({
 	  target: 'map_fcast',
 	  layers: [
@@ -251,7 +251,7 @@ if (load_fcast) {
 		}),
 		new ol.layer.Image({
 		  source: fcast_source,
-		}), 
+		}),
 	  ],
 	  view: map_view
 	});
@@ -309,9 +309,9 @@ map_fcast.on('moveend', onMoveEnd);
 //});
 
 map_fcast.on('singleclick', function (evt) {
-		
+
   var message = 'Doh!';
-  
+
   document.getElementById("forecast_message").innerHTML = message;
   document.getElementById("forecast_message").style.color = "black";
   const viewResolution = (map_view.getResolution());
@@ -349,7 +349,7 @@ map_fcast.on('singleclick', function (evt) {
 		  json.features[0].properties[fcast_property];
         }
  	  	document.getElementById("forecast_message").innerHTML = message;
- 	  	
+
   	});
   }
 });
@@ -367,31 +367,31 @@ let showingNav = targetNode.classList.contains('show-nav');
 
 // Callback function to execute when mutations are observed
 const callback = function(mutationsList, observer) {
-	console.log("Callback...");
+	console.log("Callback..");
     // Use traditional 'for loops' for IE 11
     for(const mutation of mutationsList) {
        if (mutation.attributeName === 'class' & mutation.target.classList.contains('show-nav') != showingNav) {
           showingNav = mutation.target.classList.contains('show-nav');
-          //console.log("Nav pane visibility changed " + showingNav);
+          console.log("Nav pane visibility changed " + showingNav);
           //console.log("target.classList " + mutation.target.classList);
-          
-          	  let size = map_fcast.getSize();
-              //let extent = map_fcast.calculateExtent(size);
-              let div_size = document.getElementById("map_fcast").getBoundingClientRect();
-          	  //console.log('before: ', size, div_size);
-          	  
-          	  setTimeout( function() { map_fcast.updateSize();}, 500);
-          	  setTimeout( function() { map_eo.updateSize();}, 600);
-          	 //map_fcast.updateSize([size[0], size[1]]);
-          	  //map_fcast.updateSize([div_size["width"], div_size["height"]]);
+
+          let size = map_fcast.getSize();
+          //let extent = map_fcast.calculateExtent(size);
+          let div_size = document.getElementById("map_fcast").getBoundingClientRect();
+          console.log('before: ', size, div_size);
+
+          setTimeout( function() { map_fcast.updateSize();}, 1500);
+          setTimeout( function() { map_eo.updateSize();}, 1600);
+          //map_fcast.updateSize([size[0], size[1]]);
+          //map_fcast.updateSize([div_size["width"], div_size["height"]]);
 
 
           map_fcast.getLayers().forEach(layer => layer.getSource().refresh());
-          	  
+
           size = map_fcast.getSize();
           //extent = map_fcast.calculateExtent(size);
           div_size = document.getElementById("map_fcast").getBoundingClientRect();
-          //console.log('after: ', size, div_size)
+          console.log('after: ', size, div_size)
           map_fcast.changed();
           map_eo.changed();
         }

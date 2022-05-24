@@ -14,10 +14,10 @@ WORKSPACE = 'geoserver_app'
 GEOSERVER_URI = 'http://www.example.com/geoserver-app'
 
 @csrf_exempt
-#@login_required() 
+#@login_required()
 def home(request):
     """
-    Controller for the home page 
+    Controller for the home page
     """
     geoserver_engine = app.get_spatial_dataset_service(name='main_geoserver', as_engine=True)
     #eros_geoserver_engine = app.get_spatial_dataset_service(name='EROS_geoserver', as_engine=True)
@@ -30,14 +30,14 @@ def home(request):
     eo_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/precip_monthly_data_raster.png'
     geoe5_time='2021-08-11'
     eo_geoserver_url = 'https://chc-ewx2.chc.ucsb.edu:8443/geoserver/wms'
-   
+
     eo_options = [
-      ("CHIRPS data", "chirps_global_1-month-{month}-{year}_mm_data,africa:g2008_af_1"), 
-      ("CHIRPS anomaly", "chirps_global_1-month-{month}-{year}_mm_anomaly,africa:g2008_af_1"), 
-      ("CHIRPS z-score", "chirps_global_1-month-{month}-{year}_none_z-score,africa:g2008_af_1"), 
-      ("LST Data", "lst_global_1-month-{month}-{year}_C_data,africa:g2008_af_1"), 
-      ("LST Anomaly", "lst_global_1-month-{month}-{year}_C_anomaly,africa:g2008_af_1"), 
-      ("LST Z-score", "lst_global_1-month-{month}-{year}_none_z-score,africa:g2008_af_1"), 
+      ("CHIRPS data", "chirps_global_1-month-{month}-{year}_mm_data,africa:g2008_af_1"),
+      ("CHIRPS anomaly", "chirps_global_1-month-{month}-{year}_mm_anomaly,africa:g2008_af_1"),
+      ("CHIRPS z-score", "chirps_global_1-month-{month}-{year}_none_z-score,africa:g2008_af_1"),
+      ("LST Data", "lst_global_1-month-{month}-{year}_C_data,africa:g2008_af_1"),
+      ("LST Anomaly", "lst_global_1-month-{month}-{year}_C_anomaly,africa:g2008_af_1"),
+      ("LST Z-score", "lst_global_1-month-{month}-{year}_none_z-score,africa:g2008_af_1"),
       ("CHIRTSmax", "chirtsmax_global_1-month-{month}-{year}_mm_data,africa:g2008_af_1"),
       ("Hobbins RefET", "hobbinset_global_1-month-{month}-{year}_mm_data,africa:g2008_af_1"),
       ("MODIS NDVI", "fews_emodisndvic6v2_africa_dekad_data:emodisndvic6v2_africa_dekad_data,fews_shapefile_g2008_af_1:shapefile_g2008_af_1"),
@@ -53,47 +53,47 @@ def home(request):
     )
 
     eo_years = [
-      ("--", "--"), 
-      ("1980", "1980"), 
-      ("1981", "1981"), 
-      ("1982", "1982"), 
-      ("1983", "1983"), 
-      ("1984", "1984"), 
-      ("1985", "1985"), 
-      ("1986", "1986"), 
-      ("1987", "1987"), 
-      ("1988", "1988"), 
-      ("1989", "1989"), 
-      ("1990", "1990"), 
-      ("1991", "1991"), 
-      ("1992", "1992"), 
-      ("1993", "1993"), 
-      ("1994", "1994"), 
-      ("1995", "1995"), 
-      ("1996", "1996"), 
-      ("1997", "1997"), 
-      ("1998", "1998"), 
-      ("1999", "1999"), 
-      ("2000", "2000"), 
-      ("2001", "2001"), 
-      ("2002", "2002"), 
-      ("2003", "2003"), 
-      ("2004", "2004"), 
-      ("2005", "2005"), 
-      ("2006", "2006"), 
-      ("2007", "2007"), 
-      ("2008", "2008"), 
-      ("2009", "2009"), 
-      ("2010", "2010"), 
-      ("2011", "2011"), 
-      ("2012", "2012"), 
-      ("2013", "2013"), 
-      ("2014", "2014"), 
-      ("2015", "2015"), 
-      ("2016", "2016"), 
-      ("2017", "2017"), 
-      ("2018", "2018"), 
-      ("2019", "2019"), 
+      ("--", "--"),
+      ("1980", "1980"),
+      ("1981", "1981"),
+      ("1982", "1982"),
+      ("1983", "1983"),
+      ("1984", "1984"),
+      ("1985", "1985"),
+      ("1986", "1986"),
+      ("1987", "1987"),
+      ("1988", "1988"),
+      ("1989", "1989"),
+      ("1990", "1990"),
+      ("1991", "1991"),
+      ("1992", "1992"),
+      ("1993", "1993"),
+      ("1994", "1994"),
+      ("1995", "1995"),
+      ("1996", "1996"),
+      ("1997", "1997"),
+      ("1998", "1998"),
+      ("1999", "1999"),
+      ("2000", "2000"),
+      ("2001", "2001"),
+      ("2002", "2002"),
+      ("2003", "2003"),
+      ("2004", "2004"),
+      ("2005", "2005"),
+      ("2006", "2006"),
+      ("2007", "2007"),
+      ("2008", "2008"),
+      ("2009", "2009"),
+      ("2010", "2010"),
+      ("2011", "2011"),
+      ("2012", "2012"),
+      ("2013", "2013"),
+      ("2014", "2014"),
+      ("2015", "2015"),
+      ("2016", "2016"),
+      ("2017", "2017"),
+      ("2018", "2018"),
+      ("2019", "2019"),
       ("2020", "2020"),
       ("2021", "2021"),
       ("2022", "2022"),
@@ -110,18 +110,18 @@ def home(request):
     )
 
     eo_months = [
-      ("01", "01"), 
-      ("02", "02"), 
-      ("03", "03"), 
-      ("04", "04"), 
-      ("05", "05"), 
-      ("06", "06"), 
-      ("07", "07"), 
-      ("08", "08"), 
-      ("09", "09"), 
-      ("10", "10"), 
-      ("11", "11"), 
-      ("12", "12"), 
+      ("01", "01"),
+      ("02", "02"),
+      ("03", "03"),
+      ("04", "04"),
+      ("05", "05"),
+      ("06", "06"),
+      ("07", "07"),
+      ("08", "08"),
+      ("09", "09"),
+      ("10", "10"),
+      ("11", "11"),
+      ("12", "12"),
     ]
 
     eo_months_options = SelectInput(
@@ -134,11 +134,11 @@ def home(request):
         original=True
     )
 
-    # dekads define first day of dekad	
+    # dekads define first day of dekad
     eo_dekads = [
-      ("01", "01"), 
-      ("02", "11"), 
-      ("03", "21"), 
+      ("01", "01"),
+      ("02", "11"),
+      ("03", "21"),
     ]
 
     eo_dekads_options = SelectInput(
@@ -154,31 +154,31 @@ def home(request):
 
     #-----------------------------
 
-    
+
     forecast_layer = "L_fcast_MAPE_ET"
     forecast_sld_file = "https://chc-ewx2.chc.ucsb.edu/sld/DEFAULT.SLD/NO_MATCH_FOUND"
     forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield.png'
-    
+
     forecast_options = [
       ("Current Forecast (%)",  "ET_current_CI"),
       ("Current Forecast low (%)",  "ET_current_CI_low"),
       ("Current Forecast high (%)",  "ET_current_CI_high"),
       ("Historical Forecast (%)",  "Historic_forecast"),
       ("Historical Yield Forecast (MT)",  "ET_forecast"),
-      ("Historical Yield Forecast Error", "ET_forecast_err"), 
-      ("Historical Yield Forecast MAPE", "ET_MAPE"), 
-      ("Historical Yield Forecast Hindcast", "ET_hind"), 
-      ("Area", "area"), 
-      ("Area mean (10 years)", "area_mean_10yr"), 
-      ("Area mean (all years)", "area_mean_all"), 
-      ("Production", "prod"), 
-      ("Production (mean 10 years)", "prod_mean_10yr"), 
-      ("Production (mean all years)", "prod_mean_all"), 
-      ("Yield", "yield"), 
-      ("Yield (mean 10 years)", "yield_mean_10yr"), 
+      ("Historical Yield Forecast Error", "ET_forecast_err"),
+      ("Historical Yield Forecast MAPE", "ET_MAPE"),
+      ("Historical Yield Forecast Hindcast", "ET_hind"),
+      ("Area", "area"),
+      ("Area mean (10 years)", "area_mean_10yr"),
+      ("Area mean (all years)", "area_mean_all"),
+      ("Production", "prod"),
+      ("Production (mean 10 years)", "prod_mean_10yr"),
+      ("Production (mean all years)", "prod_mean_all"),
+      ("Yield", "yield"),
+      ("Yield (mean 10 years)", "yield_mean_10yr"),
       ("Yield (mean all years)", "yield_mean_all")
     ]
-    
+
     forecast_select_options = SelectInput(
         display_text='Choose Feature',
         name='forecast_layer',
@@ -205,8 +205,8 @@ def home(request):
     )
 
     forecast_crops = [
-      ("Maize", "maize"), 
-      ("Sorghum", "sorghum"), 
+      ("Maize", "maize"),
+      ("Sorghum", "sorghum"),
     ]
 
     forecast_crops_options = SelectInput(
@@ -220,8 +220,8 @@ def home(request):
     )
 
     forecast_season = [
-      ("Long", "long"), 
-      ("Short", "short"), 
+      ("Long", "long"),
+      ("Short", "short"),
     ]
 
     forecast_season_options = SelectInput(
@@ -235,50 +235,50 @@ def home(request):
     )
 
     forecast_years = [
-      ("--", "--"), 
-      ("1980", "1980"), 
-      ("1981", "1981"), 
-      ("1982", "1982"), 
-      ("1983", "1983"), 
-      ("1984", "1984"), 
-      ("1985", "1985"), 
-      ("1986", "1986"), 
-      ("1987", "1987"), 
-      ("1988", "1988"), 
-      ("1989", "1989"), 
-      ("1990", "1990"), 
-      ("1991", "1991"), 
-      ("1992", "1992"), 
-      ("1993", "1993"), 
-      ("1994", "1994"), 
-      ("1995", "1995"), 
-      ("1996", "1996"), 
-      ("1997", "1997"), 
-      ("1998", "1998"), 
-      ("1999", "1999"), 
-      ("2000", "2000"), 
-      ("2001", "2001"), 
-      ("2002", "2002"), 
-      ("2003", "2003"), 
-      ("2004", "2004"), 
-      ("2005", "2005"), 
-      ("2006", "2006"), 
-      ("2007", "2007"), 
-      ("2008", "2008"), 
-      ("2009", "2009"), 
-      ("2010", "2010"), 
-      ("2011", "2011"), 
-      ("2012", "2012"), 
-      ("2013", "2013"), 
-      ("2014", "2014"), 
-      ("2015", "2015"), 
-      ("2016", "2016"), 
-      ("2017", "2017"), 
-      ("2018", "2018"), 
-      ("2019", "2019"), 
-      ("2020", "2020"), 
-      ("2021", "2021"), 
-      ("2022", "2022"), 
+      ("--", "--"),
+      ("1980", "1980"),
+      ("1981", "1981"),
+      ("1982", "1982"),
+      ("1983", "1983"),
+      ("1984", "1984"),
+      ("1985", "1985"),
+      ("1986", "1986"),
+      ("1987", "1987"),
+      ("1988", "1988"),
+      ("1989", "1989"),
+      ("1990", "1990"),
+      ("1991", "1991"),
+      ("1992", "1992"),
+      ("1993", "1993"),
+      ("1994", "1994"),
+      ("1995", "1995"),
+      ("1996", "1996"),
+      ("1997", "1997"),
+      ("1998", "1998"),
+      ("1999", "1999"),
+      ("2000", "2000"),
+      ("2001", "2001"),
+      ("2002", "2002"),
+      ("2003", "2003"),
+      ("2004", "2004"),
+      ("2005", "2005"),
+      ("2006", "2006"),
+      ("2007", "2007"),
+      ("2008", "2008"),
+      ("2009", "2009"),
+      ("2010", "2010"),
+      ("2011", "2011"),
+      ("2012", "2012"),
+      ("2013", "2013"),
+      ("2014", "2014"),
+      ("2015", "2015"),
+      ("2016", "2016"),
+      ("2017", "2017"),
+      ("2018", "2018"),
+      ("2019", "2019"),
+      ("2020", "2020"),
+      ("2021", "2021"),
+      ("2022", "2022"),
     ]
 
     forecast_years_options = SelectInput(
@@ -287,24 +287,24 @@ def home(request):
         multiple=False,
         options=forecast_years,
         attributes={"style":"width:75%;"},
-        initial='2021',
+        initial='2022',
         original=True
     )
 
     forecast_months = [
-      ("--", "--"), 
-      ("1", "1"), 
-      ("2", "2"), 
-      ("3", "3"), 
-      ("4", "4"), 
-      ("5", "5"), 
-      ("6", "6"), 
-      ("7", "7"), 
-      ("8", "8"), 
-      ("9", "9"), 
-      ("10", "10"), 
-      ("11", "11"), 
-      ("12", "12"), 
+      ("--", "--"),
+      ("1", "1"),
+      ("2", "2"),
+      ("3", "3"),
+      ("4", "4"),
+      ("5", "5"),
+      ("6", "6"),
+      ("7", "7"),
+      ("8", "8"),
+      ("9", "9"),
+      ("10", "10"),
+      ("11", "11"),
+      ("12", "12"),
     ]
 
     forecast_months_options = SelectInput(
@@ -312,16 +312,16 @@ def home(request):
         name='forecast_months',
         multiple=False,
         options=forecast_months,
-        initial='9',
+        initial='3',
         attributes={"style":"width:25%;"},
         original=True
     )
 
     forecast_dekads = [
-      ("--", "--"), 
-      ("1", "1"), 
-      ("2", "2"), 
-      ("3", "3"), 
+      ("--", "--"),
+      ("1", "1"),
+      ("2", "2"),
+      ("3", "3"),
     ]
 
     forecast_dekads_options = SelectInput(
@@ -335,8 +335,8 @@ def home(request):
     )
 
     match_timeframe = [
-      ("On", "on"), 
-      ("Off", "off"), 
+      ("On", "on"),
+      ("Off", "off"),
     ]
 
     match_timeframe_options = SelectInput(
@@ -363,22 +363,22 @@ def home(request):
     if request.POST and 'update_maps' in request.POST:
         print("")
         print('In update_maps Post request')
-        
+
         eo_map_layers = []
-        
+
         selected_layer = request.POST['eo_layers']
         print('EO selected_layer: ' + selected_layer)
         eo_select_options.initial=selected_layer
-            
+
         m_timeframe = request.POST['match_timeframe']
         print('match_timeframe: ' + m_timeframe)
-        
+
         if m_timeframe == 'on':
         	year = request.POST['forecast_years']
         else:
         	year = request.POST['eo_years']
         eo_years_options.initial=year
-        
+
         if m_timeframe == 'on':
             month = request.POST['forecast_months']
             print('forecast_month: ', month)
@@ -386,9 +386,9 @@ def home(request):
                 month = '0' + month
                 print('forecast_month: ', month)
         else:
-            month = request.POST['eo_months'] 
+            month = request.POST['eo_months']
         eo_months_options.initial=month
-        
+
         if m_timeframe == 'on':
             dekad = request.POST['forecast_dekads']
             if int(dekad) < 10:
@@ -397,12 +397,12 @@ def home(request):
         else:
             dekad = request.POST['eo_dekads']
         eo_dekads_options.initial=dekad
-        
+
         eo_geoserver_url = 'https://chc-ewx2.chc.ucsb.edu:8443/geoserver/wms'
         if 'fews_emodis' in selected_layer:
         	eo_geoserver_url = 'https://dmsdata.cr.usgs.gov/geoserver/wms'
         print('eo_geoserver_url: ', eo_geoserver_url)
-        	
+
         if 'data' in selected_layer:
             print('Data legend')
             eo_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/precip_monthly_data_raster.png'
@@ -436,7 +436,7 @@ def home(request):
 
         eo_time = f"{year}-{month}-{dekad}"
         print("EO time: " + eo_time)
-        	
+
         eo_layers = selected_layer.format(month=month, year=year)
         print('eo_layers: ', eo_layers)
 
@@ -456,81 +456,81 @@ def home(request):
 #              )
 #            ]
 #        )
-        
+
 #        eo_map_layers.append(eo_geoserver_layer)
 
         #-----------------------------
-    
-        
+
+
         print("")
         print('In forecast_layer Post request', request.POST)
-        
+
         selected_layer = request.POST['forecast_layer']
         forecast_layer = selected_layer
         print('forecast selected_layer: ' + selected_layer)
         print('forecast_layer: ' + forecast_layer)
         #forecast_select_options.initial='ET_forecast_pcnt'
         forecast_select_options.initial=selected_layer
-    
+
         year = request.POST['forecast_years']
         print('selected_year: ' + year)
         forecast_years_options.initial=year
-        
+
         month = request.POST['forecast_months']
         print('selected_month: ' + month)
         forecast_months_options.initial=month
-        
+
         dekad = request.POST['forecast_dekads']
         print('selected_dekad: ' + dekad)
         forecast_dekads_options.initial=dekad
-        
+
         crop = request.POST['forecast_crops']
         print('selected_crop: ' + crop)
         forecast_crops_options.initial=crop
-        
+
         forecast_season = request.POST['forecast_season']
         print('selected_season: ' + forecast_season)
         forecast_season_options.initial = forecast_season
-        
+
         m_timeframe = request.POST['match_timeframe']
         print('match_timeframe: ' + m_timeframe)
         match_timeframe_options.initial = m_timeframe
-        
+
         sld_url = "https://chc-ewx2.chc.ucsb.edu/sld/"
-        
+
         if forecast_season == 'long':
           season = "L"
         elif forecast_season == 'short':
           season = 'S'
- 
+
         print('selected_crops: ' + crop)
         if crop == 'maize':
           crop_dir = 'maize/'
         elif crop == 'sorghum':
           crop_dir = 'sorghum/'
         print('crop_dir: ' + crop_dir)
-        
-        
+
+
         if selected_layer == "ET_current_CI":
           forecast_shapefile = f"ag_monitor_{crop}:{season}_current_fcast_ET"
           forecast_sld_file = f"{sld_url}ET_cur_CI/{crop}/{season}_ET_cur_CI_{year}{month}{dekad}.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield_ci.png'
           forecast_property = f"F{year}{month}{dekad}"
           print("forecast_shapefile: ", forecast_shapefile)
-          
+
         if selected_layer == "ET_current_CI_low":
           forecast_shapefile = f"ag_monitor_{crop}:{season}_current_fcast_ET"
           forecast_sld_file = f"{sld_url}ET_cur_CI/{crop}/{season}_ET_cur_CI_lo_{year}{month}{dekad}.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield_ci.png'
           forecast_property = f"LOF{year}{month}{dekad}"
           print("forecast_shapefile: ", forecast_shapefile)
-          
+
         if selected_layer == "ET_current_CI_high":
           forecast_shapefile = f"ag_monitor_{crop}:{season}_current_fcast_ET"
           forecast_sld_file = f"{sld_url}ET_cur_CI/{crop}/{season}_ET_cur_CI_hi_{year}{month}{dekad}.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield_ci.png'
           forecast_property = f"HIF{year}{month}{dekad}"
-          
+
         if selected_layer == "Historic_forecast":
           forecast_shapefile = f"ag_monitor_{crop}:{season}_fcast_ET_percent"
           forecast_sld_file = f"{sld_url}ET_fcast_pcnt/{crop}/{season}_ET_pcnt_{year}{month}{dekad}.sld"
@@ -541,7 +541,7 @@ def home(request):
         if selected_layer == "ET_forecast":
           forecast_shapefile = f"ag_monitor_{crop}:{season}_fcast_ET"
           forecast_sld_file = f"{sld_url}ET_fcast/{crop}/{season}_ET_fcast_{year}{month}{dekad}.sld"
-          forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield1.png' 
+          forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield1.png'
           forecast_property = f"F{year}{month}{dekad}"
 
         if selected_layer == "ET_forecast_err":
@@ -549,13 +549,13 @@ def home(request):
           forecast_sld_file = f"{sld_url}ET_error/{crop}/{season}_ET_err_{year}{month}{dekad}.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield_error.png'
           forecast_property = f"E{year}{month}{dekad}"
-          
+
         if selected_layer == "ET_MAPE":
           forecast_shapefile = f"ag_monitor_{crop}:{season}_fcast_MAPE_ET"
           forecast_sld_file = f"{sld_url}ET_MAPE/{crop}/{season}_ET_MP_{month}_{dekad}.sld"
-          forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield_MAPE.png'     
+          forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield_MAPE.png'
           forecast_property = f"MP_{month}_{dekad}"
-          
+
         if selected_layer == "ET_hind":
           forecast_shapefile = f"ag_monitor_{crop}:{season}_fcast_ET_HIND"
           forecast_sld_file = f"{sld_url}ET_fcast_HIND/{crop}/{season}_ET_fcast_HIND_{year}{month}{dekad}.sld"
@@ -568,62 +568,62 @@ def home(request):
           forecast_sld_file = f"{sld_url}area/{crop}/area_{season}{year}.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_area.png'
           forecast_property = f"O{year}"
-          
+
         if selected_layer == "area_mean_10yr":
           forecast_shapefile = f"ag_monitor_{crop}:{season}_area_mn"
           forecast_sld_file = f"{sld_url}area/{crop}/{season}_area_mean_10yr.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_area.png'
           forecast_property = "MN_10"
-          
+
         if selected_layer == "area_mean_all":
           forecast_shapefile = f"ag_monitor_{crop}:{season}_area_mn"
           forecast_sld_file = f"{sld_url}area/{crop}/{season}_area_mean_all.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_area.png'
           forecast_property = "MN_ALL"
-          
+
         if selected_layer == "prod":
           forecast_shapefile = f"ag_monitor_{crop}:{season}_prod"
           forecast_sld_file = f"{sld_url}prod/{crop}/{season}_prod_{year}.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_prod.png'
           forecast_property = f"O{year}"
-          
+
         if selected_layer == "prod_mean_10yr":
           forecast_shapefile = f"ag_monitor_{crop}:{season}_prod_mn"
           forecast_sld_file = f"{sld_url}prod/{crop}/{season}_prod_mean_10yr.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_prod.png'
           forecast_property = "MN_10"
-          
+
         if selected_layer == "prod_mean_all":
           forecast_shapefile = f"ag_monitor_{crop}:{season}_prod_mn"
           forecast_sld_file = f"{sld_url}prod/{crop}/{season}_prod_mean_all.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_prod.png'
           forecast_property = "MN_ALL"
-          
+
         if selected_layer == "yield":
           forecast_shapefile = f"ag_monitor_{crop}:{season}_yield"
           forecast_sld_file = f"{sld_url}yield/{crop}/{season}_yield_{year}.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield1.png'
           forecast_property = f"O{year}"
-          
+
         if selected_layer == "yield_mean_10yr":
           forecast_shapefile = f"ag_monitor_{crop}:{season}_yield_mn"
           forecast_sld_file = f"{sld_url}yield/{crop}/{season}_yield_mean_10yr.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield1.png'
           forecast_property = "MN_10"
-          
+
         if selected_layer == "yield_mean_all":
           forecast_shapefile = f"ag_monitor_{crop}:{season}_yield_mn"
           forecast_sld_file = f"{sld_url}yield/{crop}/{season}_yield_mean_all.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield1.png'
           forecast_property = "MN_ALL"
-    
+
         #forecast_sld_file = f"https://chc-ewx2.chc.ucsb.edu/sld/yield_ET_err_long_{year}{month}{dekad}.sld"
         print("SLD file: ", forecast_sld_file)
         print("forecast_property: ", forecast_property)
         print("forecast_shapefile: ", forecast_shapefile)
         legend_title = selected_layer.title()
         print("forecast_legend_url: ", forecast_legend_url)
-    
+
 
 
     eo_view_options = MVView(

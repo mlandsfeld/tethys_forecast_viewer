@@ -10,7 +10,7 @@
 
 {% block app_icon %}
   {# The path you provided in your app.py is accessible through the tethys_app.icon context variable #}
-  <img src="{% if 'http' in tethys_app.icon %}{{ tethys_app.icon }}{% else %}{% static tethys_app.icon %}{% endif %}" 
+  <img src="{% if 'http' in tethys_app.icon %}{{ tethys_app.icon }}{% else %}{% static tethys_app.icon %}{% endif %}"
             style="border-radius:0"/>
 {% endblock %}
 
@@ -28,11 +28,10 @@
   <li><a href="https://chc-ewx2.chc.ucsb.edu" target="_blank">EWX Viewer</a></li>
   <li><a href="https://www.chc.ucsb.edu/" target="_blank">Climate Hazards Center</a></li>
   <li><a href="https://rcmrd.org/" target="_blank">RCMRD</a></li>
-  <li><a href="https://www.nhl.com/redwings/" target="_blank">Tutorials</a></li>
+  <li><a href="https://www.mlb.com/tigers" target="_blank">Tutorials</a></li>
   <li class="separator"></li>
+
   <li class="title">Tools</li>
-  <br>
-  <br>
   <br>
   <input name="update_maps" type="submit" value="Western Africa" onclick="viewWestAfrica()" class="btn btn-default" style="width:50%;">
   <br>
@@ -44,7 +43,6 @@
 
   <br>
   <br>
-  <button type="button">Match Timeframe</button>
 {% endblock %}
 
 {% block app_actions %}
