@@ -380,8 +380,8 @@ const callback = function(mutationsList, observer) {
           let div_size = document.getElementById("map_fcast").getBoundingClientRect();
           console.log('before: ', size, div_size);
 
-          setTimeout( function() { map_fcast.updateSize();}, 1500);
-          setTimeout( function() { map_eo.updateSize();}, 1600);
+          setTimeout( function() { map_fcast.updateSize();}, 500);
+          setTimeout( function() { map_eo.updateSize();}, 600);
           //map_fcast.updateSize([size[0], size[1]]);
           //map_fcast.updateSize([div_size["width"], div_size["height"]]);
 
