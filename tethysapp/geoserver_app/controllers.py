@@ -313,7 +313,7 @@ def home(request):
         multiple=False,
         options=forecast_months,
         initial='3',
-        attributes={"style":"width:25%;"},
+        attributes={"style":"width:50%;"},
         original=True
     )
 
@@ -340,12 +340,12 @@ def home(request):
     ]
 
     match_timeframe_options = SelectInput(
-        display_text='Match Timeframe',
+        display_text='Match Timeframex',
         name='match_timeframe',
         multiple=False,
         options=match_timeframe,
         initial='On',
-        attributes={"style":"width:25%;"},
+        attributes={"style":"width:25%;background-color:lightgreen;"},
         original=True
     )
 
