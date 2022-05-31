@@ -340,7 +340,7 @@ def home(request):
     ]
 
     match_timeframe_options = SelectInput(
-        display_text='Match Timeframex',
+        display_text='Match Timeframe',
         name='match_timeframe',
         multiple=False,
         options=match_timeframe,

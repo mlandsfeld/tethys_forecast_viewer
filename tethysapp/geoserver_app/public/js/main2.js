@@ -1,6 +1,4 @@
 
-//import sync from 'ol-hashed';
-//import ImageWMS from 'ol/source/ImageWMS';
 
 console.log('In main2.js forecast_viewer...');
 
@@ -27,10 +25,6 @@ if (eo_time != undefined) {
 }
 console.log('EO_PARAMS: ', eo_params);
 
-//var sld = featureforecast_sld_file.split('/');
-//console.log('SLD: ', sld[sld.length-1]);
-//sld = sld[sld.length-1]
-
 var wms_layer = eo_layers.split(',');
 console.log('WMS LAYER: ', wms_layer);
 wms_layer = wms_layer[0];
@@ -38,11 +32,6 @@ console.log('WMS LAYER: ', wms_layer);
 
 document.getElementById("eo_message").innerHTML = wms_layer;
 
-//eo_layers_test = {'LAYERS': eo_layers};
-//if (eo_layers.includes('emodis')) {
-//	eo_layers_test = {'LAYERS': eo_layers, 'TIME':geoe5_time};
-//	console.log('EMODIS time:', geoe5_time);
-//}
 
 //  sessionStorage.clear(); //*** resets storage ***
 
@@ -161,15 +150,19 @@ var load_fcast = true;
 
 // function to handle success
 function success() {
-	console.log('sucess...');
+	  console.log('sucess...');
     var res = JSON.parse(this.responseText);
     var values = Object.keys(res.features[0].properties);
     values.sort();
     values.reverse();
 
     var select = document.createElement("select");
-    select.name = "pets";
-    select.id = "pets"
+    select.name = "dates";
+    select.id = "dates"
+
+    select.onselect = function() {
+      console.log("in select...");
+    }
 
     for (const val of values)
     {
@@ -208,11 +201,11 @@ function success() {
 
     var label = document.createElement("label");
     label.innerHTML = "Available Dates: "
-    label.htmlFor = "pets";
+    label.htmlFor = "dates";
 
-    document.getElementById("container").appendChild(label).appendChild(select);
+    document.getElementById("available_dates").appendChild(label).appendChild(select);
 
-
+    console.log('Selected value: ', select.value);
 
     if ( ! res.features[0].properties.hasOwnProperty(fcast_property) ) {
       console.log('fcast_property: ', fcast_property);
@@ -231,10 +224,72 @@ var xhr = new XMLHttpRequest(); //invoke a new instance of the XMLHttpRequest
 
 xhr.onload = success; // call success function if request is successful
 xhr.onerror = error;  // call error function if request failed
+
 var request = geoserver_url + "/wfs?typeNames=" + fcast_shapefile + "&service=wfs&version=1.3.0&request=GetFeature&count=1&outputFormat=json";
+
 console.log('request: ', request);
 xhr.open('GET', request, true); // open a GET request
 xhr.send(); // send the request to the server.
+
+console.log("Display date: ", document.getElementById('display_date'));
+
+
+
+// -------- Display Date ----------------
+
+document.getElementById('display_date').onclick = function() {
+
+  var e = document.getElementById("dates");
+  var date = e.options[e.selectedIndex].text;
+
+
+	//var date = document.getElementById('dates').value;
+	console.log("Display date: ", date);
+
+	var match_time = document.getElementById('match_timeframe');
+	console.log("Match timeframe: ", match_time.value);
+
+  //document.getElementById('forecast_months').value = 1;
+
+
+  var date_arr = date.split('-');
+	var n_parts = date_arr.length;
+
+	var year = date_arr[0];
+	document.getElementById('forecast_years').value = year;
+	if (match_time = "on") {
+		document.getElementById('eo_years').value = year;
+	};
+
+	if (n_parts > 1) {
+		var month = date_arr[1];
+		document.getElementById('forecast_months').value = month;
+		if (match_time = "on") {
+			if (month < 10) { month = '0' + month}
+			document.getElementById('eo_months').value = month;
+		};
+	}
+
+	if (n_parts > 2) {
+		var dekad = date_arr[2];
+		document.getElementById('forecast_dekads').value = dekad;
+		if (match_time = "on") {
+			if (dekad == "1") { dekad = '01'; }
+			if (dekad == "2") { dekad = '11'; }
+			if (dekad == "3") { dekad = '21'; }
+			document.getElementById('eo_dekads').value = dekad;
+		};
+	}
+
+
+
+
+	var home_form = document.getElementById('home_form');
+	console.log("home_form: ", home_form);
+	//home_form.submit();
+
+
+}
 
 
 if (load_fcast) {
@@ -259,29 +314,6 @@ if (load_fcast) {
 	});
 };
 
-// boneyard
-//xhr.overrideMimeType("application/json");
-//xhr.responseType = "json";
-//xhr.onreadystatechange = function() {
-//if (this.readyState == 4 && this.status == 200) {
-//    var data = JSON.parse(this.responseText);
-//    console.log('data: ', this.responseText);
-//    }
-//};
-
-//let fetched = fetch("https://chc-ewx2.chc.ucsb.edu:8443/geoserver/wfs?service=wfs&version=1.3.0&request=GetFeature&typeNames=ag_monitor_maize:L_fcast_ET&count=1");
-//fetched.then( { console.log('fetched: ', fetched.json()); )
-
-//if (fetched.ok) { console.log('fetched: ', fetched.json()); }
-
-//var allFeatures = new WMSGetFeatureInfo();
-//var fcast_features = fcast_source.getFeatures();
-
-//var fcast_features = map_fcast.getLayerGroup().getLayers();
-//var source = fcast_features.getSource();
-//console.log('fcast_features: ', fcast_features);
-
-//console.log("map_view getCenter: ", map_view.getCenter());
 
 var center_coords;
 
@@ -296,10 +328,10 @@ function onMoveEnd(evt) {
 	sessionStorage.setItem("map_view_center_lon", center_lon.toString());
 	sessionStorage.setItem("map_view_center_lat", center_lat.toString());
 	sessionStorage.setItem("map_view_zoom", zoom.toString());
-	//mv_center_lon = sessionStorage.getItem("map_view_center_lon");
-    //mv_center_lat = sessionStorage.getItem("map_view_center_lat");
-    //mv_zoom = sessionStorage.getItem("map_view_zoom");
 
+	//mv_center_lon = sessionStorage.getItem("map_view_center_lon");
+  //mv_center_lat = sessionStorage.getItem("map_view_center_lat");
+  //mv_zoom = sessionStorage.getItem("map_view_zoom");
 	//console.log('mv retrieved: ', mv_center_lon, mv_center_lat, mv_zoom);
 };
 
@@ -405,8 +437,3 @@ const observer = new MutationObserver(callback);
 
 // Start observing the target node for configured mutations
 observer.observe(targetNode, config);
-
-
-
-//map_eo.bindTo('view', map_fcast);
-///sync(map_eo);
