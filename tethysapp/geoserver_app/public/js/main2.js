@@ -255,7 +255,7 @@ document.getElementById('display_date').onclick = function() {
   var date_arr = date.split('-');
 	var n_parts = date_arr.length;
 
-	var year == date_arr[0];
+	var year = date_arr[0];
 	document.getElementById('forecast_years').value = year;
 	if (match_time == "on") {
 		document.getElementById('eo_years').value = year;
