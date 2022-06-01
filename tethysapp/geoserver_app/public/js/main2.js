@@ -246,8 +246,8 @@ document.getElementById('display_date').onclick = function() {
 	//var date = document.getElementById('dates').value;
 	console.log("Display date: ", date);
 
-	var match_time = document.getElementById('match_timeframe');
-	console.log("Match timeframe: ", match_time.value);
+	var match_time = document.getElementById('match_timeframe').value;
+	console.log("Match timeframe: ", match_time);
 
   //document.getElementById('forecast_months').value = 1;
 
