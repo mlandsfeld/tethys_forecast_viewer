@@ -255,16 +255,16 @@ document.getElementById('display_date').onclick = function() {
   var date_arr = date.split('-');
 	var n_parts = date_arr.length;
 
-	var year = date_arr[0];
+	var year == date_arr[0];
 	document.getElementById('forecast_years').value = year;
-	if (match_time = "on") {
+	if (match_time == "on") {
 		document.getElementById('eo_years').value = year;
 	};
 
 	if (n_parts > 1) {
 		var month = date_arr[1];
 		document.getElementById('forecast_months').value = month;
-		if (match_time = "on") {
+		if (match_time == "on") {
 			if (month < 10) { month = '0' + month}
 			document.getElementById('eo_months').value = month;
 		};
@@ -273,7 +273,7 @@ document.getElementById('display_date').onclick = function() {
 	if (n_parts > 2) {
 		var dekad = date_arr[2];
 		document.getElementById('forecast_dekads').value = dekad;
-		if (match_time = "on") {
+		if (match_time == "on") {
 			if (dekad == "1") { dekad = '01'; }
 			if (dekad == "2") { dekad = '11'; }
 			if (dekad == "3") { dekad = '21'; }
