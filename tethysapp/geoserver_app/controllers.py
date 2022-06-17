@@ -163,7 +163,7 @@ def home(request):
       ("Current Forecast (%)",  "ET_current_CI"),
       ("Current Forecast low (%)",  "ET_current_CI_low"),
       ("Current Forecast high (%)",  "ET_current_CI_high"),
-      ("Historical Forecast (%)",  "Historic_forecast"),
+      ("Historical Forecast (%)",  "ET_Historic_forecast"),
       ("Historical Yield Forecast (MT)",  "ET_forecast"),
       ("Historical Yield Forecast Error", "ET_forecast_err"),
       ("Historical Yield Forecast MAPE", "ET_MAPE"),
@@ -359,8 +359,9 @@ def home(request):
     forecast_property = '' #remove when done with all datasets
     forecast_shapefile = ''
 
-    #if request.POST and 'eo_layer' in request.POST:
-    if request.POST and 'update_maps' in request.POST:
+    # ========  Start POST request processing  ==============
+    if request.POST  and 'update_maps' in request.POST:
+
         print("")
         print('In update_maps Post request')
 
@@ -457,13 +458,31 @@ def home(request):
 #            ]
 #        )
 
-#        eo_map_layers.append(eo_geoserver_layer)
 
-        #-----------------------------
+        #------- Process forecast model attributes  ----------------
 
 
         print("")
-        print('In forecast_layer Post request', request.POST)
+        print('Process forecast model attributes', request.POST)
+
+
+
+        forecast_model = request.POST['forecast_model']
+        print('forecast_model: ' + forecast_model)
+        forecast_model_options.initial=forecast_model
+
+        if forecast_model == 'ET':
+          fcast_model = ""
+          shape_model = "_ET"
+        elif forecast_model == 'GB':
+          fcast_model = '_GB'
+          shape_model = "_GB"
+        elif forecast_model == 'RHEAS':
+          fcast_model = '_RH'
+          shape_model = "_RH"
+        elif forecast_model == 'GeoCIF':
+          fcast_model = '_GC'
+          shape_model = "_GC"
 
         selected_layer = request.POST['forecast_layer']
         forecast_layer = selected_layer
@@ -512,107 +531,107 @@ def home(request):
 
 
         if selected_layer == "ET_current_CI":
-          forecast_shapefile = f"ag_monitor_{crop}:{season}_current_fcast_ET"
-          forecast_sld_file = f"{sld_url}ET_cur_CI/{crop}/{season}_ET_cur_CI_{year}{month}{dekad}.sld"
+          forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_current_fcast{shape_model}"
+          forecast_sld_file = f"{sld_url}{forecast_model}_cur_CI/{crop}/{season}{shape_model}_cur_CI_{year}{month}{dekad}.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield_ci.png'
           forecast_property = f"F{year}{month}{dekad}"
           print("forecast_shapefile: ", forecast_shapefile)
 
         if selected_layer == "ET_current_CI_low":
-          forecast_shapefile = f"ag_monitor_{crop}:{season}_current_fcast_ET"
-          forecast_sld_file = f"{sld_url}ET_cur_CI/{crop}/{season}_ET_cur_CI_lo_{year}{month}{dekad}.sld"
+          forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_current_fcast{shape_model}"
+          forecast_sld_file = f"{sld_url}{forecast_model}_cur_CI/{crop}/{season}{shape_model}_cur_CI_lo_{year}{month}{dekad}.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield_ci.png'
           forecast_property = f"LOF{year}{month}{dekad}"
           print("forecast_shapefile: ", forecast_shapefile)
 
         if selected_layer == "ET_current_CI_high":
-          forecast_shapefile = f"ag_monitor_{crop}:{season}_current_fcast_ET"
-          forecast_sld_file = f"{sld_url}ET_cur_CI/{crop}/{season}_ET_cur_CI_hi_{year}{month}{dekad}.sld"
+          forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_current_fcast{shape_model}"
+          forecast_sld_file = f"{sld_url}{forecast_model}_cur_CI/{crop}/{season}{shape_model}_cur_CI_hi_{year}{month}{dekad}.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield_ci.png'
           forecast_property = f"HIF{year}{month}{dekad}"
 
-        if selected_layer == "Historic_forecast":
-          forecast_shapefile = f"ag_monitor_{crop}:{season}_fcast_ET_percent"
-          forecast_sld_file = f"{sld_url}ET_fcast_pcnt/{crop}/{season}_ET_pcnt_{year}{month}{dekad}.sld"
+        if selected_layer == "ET_Historic_forecast":
+          forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_fcast_percent{shape_model}"
+          forecast_sld_file = f"{sld_url}{forecast_model}_fcast_pcnt/{crop}/{season}{shape_model}_pcnt_{year}{month}{dekad}.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield_ci.png'
           forecast_property = f"F{year}{month}{dekad}"
           print("forecast_shapefile: ", forecast_shapefile)
 
         if selected_layer == "ET_forecast":
-          forecast_shapefile = f"ag_monitor_{crop}:{season}_fcast_ET"
-          forecast_sld_file = f"{sld_url}ET_fcast/{crop}/{season}_ET_fcast_{year}{month}{dekad}.sld"
+          forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_fcast{shape_model}"
+          forecast_sld_file = f"{sld_url}{forecast_model}_fcast/{crop}/{season}{shape_model}_fcast_{year}{month}{dekad}.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield1.png'
           forecast_property = f"F{year}{month}{dekad}"
 
         if selected_layer == "ET_forecast_err":
-          forecast_shapefile = f"ag_monitor_{crop}:{season}_fcast_error_ET"
-          forecast_sld_file = f"{sld_url}ET_error/{crop}/{season}_ET_err_{year}{month}{dekad}.sld"
+          forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_fcast_error{shape_model}"
+          forecast_sld_file = f"{sld_url}{forecast_model}_error/{crop}/{season}{shape_model}_err_{year}{month}{dekad}.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield_error.png'
           forecast_property = f"E{year}{month}{dekad}"
 
         if selected_layer == "ET_MAPE":
-          forecast_shapefile = f"ag_monitor_{crop}:{season}_fcast_MAPE_ET"
-          forecast_sld_file = f"{sld_url}ET_MAPE/{crop}/{season}_ET_MP_{month}_{dekad}.sld"
+          forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_fcast_MAPE{shape_model}"
+          forecast_sld_file = f"{sld_url}{forecast_model}_MAPE/{crop}/{season}{shape_model}_MP_{month}_{dekad}.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield_MAPE.png'
           forecast_property = f"MP_{month}_{dekad}"
 
         if selected_layer == "ET_hind":
-          forecast_shapefile = f"ag_monitor_{crop}:{season}_fcast_ET_HIND"
-          forecast_sld_file = f"{sld_url}ET_fcast_HIND/{crop}/{season}_ET_fcast_HIND_{year}{month}{dekad}.sld"
+          forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_fcast{shape_model}_HIND"
+          forecast_sld_file = f"{sld_url}{forecast_model}_fcast_HIND/{crop}/{season}{shape_model}_HIND_{year}{month}{dekad}.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield1.png'
           forecast_property = f"F{year}{month}{dekad}"
 
 
         if selected_layer == "area":
-          forecast_shapefile = f"ag_monitor_{crop}:{season}_area"
+          forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_area"
           forecast_sld_file = f"{sld_url}area/{crop}/area_{season}{year}.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_area.png'
           forecast_property = f"O{year}"
 
         if selected_layer == "area_mean_10yr":
-          forecast_shapefile = f"ag_monitor_{crop}:{season}_area_mn"
+          forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_area_mn"
           forecast_sld_file = f"{sld_url}area/{crop}/{season}_area_mean_10yr.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_area.png'
           forecast_property = "MN_10"
 
         if selected_layer == "area_mean_all":
-          forecast_shapefile = f"ag_monitor_{crop}:{season}_area_mn"
+          forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_area_mn"
           forecast_sld_file = f"{sld_url}area/{crop}/{season}_area_mean_all.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_area.png'
           forecast_property = "MN_ALL"
 
         if selected_layer == "prod":
-          forecast_shapefile = f"ag_monitor_{crop}:{season}_prod"
+          forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_prod"
           forecast_sld_file = f"{sld_url}prod/{crop}/{season}_prod_{year}.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_prod.png'
           forecast_property = f"O{year}"
 
         if selected_layer == "prod_mean_10yr":
-          forecast_shapefile = f"ag_monitor_{crop}:{season}_prod_mn"
+          forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_prod_mn"
           forecast_sld_file = f"{sld_url}prod/{crop}/{season}_prod_mean_10yr.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_prod.png'
           forecast_property = "MN_10"
 
         if selected_layer == "prod_mean_all":
-          forecast_shapefile = f"ag_monitor_{crop}:{season}_prod_mn"
+          forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_prod_mn"
           forecast_sld_file = f"{sld_url}prod/{crop}/{season}_prod_mean_all.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_prod.png'
           forecast_property = "MN_ALL"
 
         if selected_layer == "yield":
-          forecast_shapefile = f"ag_monitor_{crop}:{season}_yield"
+          forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_yield"
           forecast_sld_file = f"{sld_url}yield/{crop}/{season}_yield_{year}.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield1.png'
           forecast_property = f"O{year}"
 
         if selected_layer == "yield_mean_10yr":
-          forecast_shapefile = f"ag_monitor_{crop}:{season}_yield_mn"
+          forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_yield_mn"
           forecast_sld_file = f"{sld_url}yield/{crop}/{season}_yield_mean_10yr.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield1.png'
           forecast_property = "MN_10"
 
         if selected_layer == "yield_mean_all":
-          forecast_shapefile = f"ag_monitor_{crop}:{season}_yield_mn"
+          forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_yield_mn"
           forecast_sld_file = f"{sld_url}yield/{crop}/{season}_yield_mean_all.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield1.png'
           forecast_property = "MN_ALL"
