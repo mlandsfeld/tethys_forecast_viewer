@@ -205,7 +205,7 @@ function success() {
 			};
 
 			select.appendChild(option);
-			console.log(option);
+			//console.log(option);
 
 		};
     }

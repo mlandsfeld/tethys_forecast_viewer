@@ -571,7 +571,7 @@ def home(request):
 
         if selected_layer == "ET_MAPE":
           forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_fcast_MAPE{shape_model}"
-          forecast_sld_file = f"{sld_url}{forecast_model}_MAPE/{crop}/{season}{shape_model}_MP_{month}_{dekad}.sld"
+          forecast_sld_file = f"{sld_url}{forecast_model}_MAPE/{crop}/{season}{shape_model}_MAPE_{month}_{dekad}.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield_MAPE.png'
           forecast_property = f"MP_{month}_{dekad}"
 
