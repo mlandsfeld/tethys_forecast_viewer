@@ -551,7 +551,7 @@ def home(request):
           forecast_property = f"HIF{year}{month}{dekad}"
 
         if selected_layer == "ET_Historic_forecast":
-          forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_fcast_percent{shape_model}"
+          forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_fcast{shape_model}_percent"
           forecast_sld_file = f"{sld_url}{forecast_model}_fcast_pcnt/{crop}/{season}{shape_model}_pcnt_{year}{month}{dekad}.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield_ci.png'
           forecast_property = f"F{year}{month}{dekad}"

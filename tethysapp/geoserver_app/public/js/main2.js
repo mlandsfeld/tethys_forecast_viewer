@@ -142,7 +142,7 @@ var forecast_sld_file = $('#my-attributes').data('forecast-sld');
 console.log('Forecast SLD: ', forecast_sld_file);
 
 var forecast_property = $('#my-attributes').data('forecast-property');
-document.getElementById("forecast_message").innerHTML = forecast_property;
+document.getElementById("forecast_message").innerHTML = "";
 console.log('Forecast property js: ', forecast_property);
 
 
@@ -151,7 +151,15 @@ var load_fcast = true;
 // Fill in the Available Dates button
 function success() {
 	  console.log('success...');
+
+    if( this.responseText.includes("Exception")) {
+      document.getElementById("forecast_message").innerHTML = "Data does not exist for:  " + fcast_shapefile
+			document.getElementById("forecast_message").style.color = "red";
+    }
+
     var res = JSON.parse(this.responseText);
+
+    document.getElementById("forecast_message").innerHTML = forecast_property;
     var values = Object.keys(res.features[0].properties);
     values.sort();
     values.reverse();
@@ -228,7 +236,8 @@ function success() {
 
 // function to handle error
 function error(err) {
-    console.log('Request Failed', err); //error details will be in the "err" object
+	document.getElementById("forecast_message").innerHTML = "Error retrieving shapefile: " + fcast_shapefile;
+  console.log('Request Failed', err); //error details will be in the "err" object
 };
 
 var xhr = new XMLHttpRequest(); //invoke a new instance of the XMLHttpRequest
