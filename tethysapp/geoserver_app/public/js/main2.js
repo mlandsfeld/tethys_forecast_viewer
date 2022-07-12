@@ -118,7 +118,11 @@ function viewEastAfrica(evt) {
 
 var map_eo = new ol.Map({
   target: 'map_eo',
-	controls: [],
+  controls: ol.control.defaults({
+    zoom: true,
+    attribution: false,
+    rotate: false
+  }),
   layers: [
 	new ol.layer.Tile({
 	  source: new ol.source.OSM(),
@@ -341,7 +345,11 @@ if (load_fcast) {
 
 	var map_fcast = new ol.Map({
 	  target: 'map_fcast',
-		controls: [],
+		controls: ol.control.defaults({
+	    zoom: true,
+	    attribution: false,
+	    rotate: false
+	  }),
 	  layers: [
 		new ol.layer.Tile({
 		  source: new ol.source.OSM(),
