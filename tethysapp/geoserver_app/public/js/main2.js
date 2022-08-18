@@ -154,7 +154,8 @@ var load_fcast = true;
 
 // Fill in the Available Dates button
 function success() {
-	  console.log('success...');
+	console.log('success...');
+	//console.log('this.responseText: ', this.responseText);
 
     if( this.responseText.includes("Exception")) {
       document.getElementById("forecast_message").innerHTML = "Data does not exist for:  " + fcast_shapefile
@@ -257,7 +258,7 @@ xhr.send(); // send the request to the server.
 
 
 
-// -------- Set date buttons ----------------
+// -------- Choose date button ----------------
 
 document.getElementById('display_date').onclick = function() {
 
