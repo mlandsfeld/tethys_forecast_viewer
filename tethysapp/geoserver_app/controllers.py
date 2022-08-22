@@ -583,55 +583,55 @@ def home(request):
 
 
         if selected_layer == "area":
-          forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_area"
+          forecast_shapefile = f"ag_monitor_{crop}:{season}_area"
           forecast_sld_file = f"{sld_url}area/{crop}/area_{season}{year}.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_area.png'
           forecast_property = f"O{year}"
 
         if selected_layer == "area_mean_10yr":
-          forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_area_mn"
+          forecast_shapefile = f"ag_monitor_{crop}:{season}_area_mn"
           forecast_sld_file = f"{sld_url}area/{crop}/{season}_area_mean_10yr.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_area.png'
           forecast_property = "MN_10"
 
         if selected_layer == "area_mean_all":
-          forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_area_mn"
+          forecast_shapefile = f"ag_monitor_{crop}:{season}_area_mn"
           forecast_sld_file = f"{sld_url}area/{crop}/{season}_area_mean_all.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_area.png'
           forecast_property = "MN_ALL"
 
         if selected_layer == "prod":
-          forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_prod"
+          forecast_shapefile = f"ag_monitor_{crop}:{season}_prod"
           forecast_sld_file = f"{sld_url}prod/{crop}/{season}_prod_{year}.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_prod.png'
           forecast_property = f"O{year}"
 
         if selected_layer == "prod_mean_10yr":
-          forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_prod_mn"
+          forecast_shapefile = f"ag_monitor_{crop}:{season}_prod_mn"
           forecast_sld_file = f"{sld_url}prod/{crop}/{season}_prod_mean_10yr.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_prod.png'
           forecast_property = "MN_10"
 
         if selected_layer == "prod_mean_all":
-          forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_prod_mn"
+          forecast_shapefile = f"ag_monitor_{crop}:{season}_prod_mn"
           forecast_sld_file = f"{sld_url}prod/{crop}/{season}_prod_mean_all.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_prod.png'
           forecast_property = "MN_ALL"
 
         if selected_layer == "yield":
-          forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_yield"
+          forecast_shapefile = f"ag_monitor_{crop}:{season}_yield"
           forecast_sld_file = f"{sld_url}yield/{crop}/{season}_yield_{year}.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield1.png'
           forecast_property = f"O{year}"
 
         if selected_layer == "yield_mean_10yr":
-          forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_yield_mn"
+          forecast_shapefile = f"ag_monitor_{crop}:{season}_yield_mn"
           forecast_sld_file = f"{sld_url}yield/{crop}/{season}_yield_mean_10yr.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield1.png'
           forecast_property = "MN_10"
 
         if selected_layer == "yield_mean_all":
-          forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_yield_mn"
+          forecast_shapefile = f"ag_monitor_{crop}:{season}_yield_mn"
           forecast_sld_file = f"{sld_url}yield/{crop}/{season}_yield_mean_all.sld"
           forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield1.png'
           forecast_property = "MN_ALL"
