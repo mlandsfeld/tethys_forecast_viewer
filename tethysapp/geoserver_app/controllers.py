@@ -14,7 +14,7 @@ WORKSPACE = 'geoserver_app'
 GEOSERVER_URI = 'http://www.example.com/geoserver-app'
 
 @csrf_exempt
-#@login_required()
+@login_required()
 def home(request):
     """
     Controller for the home page
