@@ -29,7 +29,7 @@ def home(request):
     eo_layers = "chirps_global_1-month-07-2016_mm_data,africa:g2008_af_1"
     eo_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/precip_monthly_data_raster.png'
     geoe5_time='2021-08-11'
-    eo_geoserver_url = 'https://chc-ewx2.chc.ucsb.edu:8443/geoserver/wms'
+    eo_geoserver_url = 'https://data.rcmrd.org/geoserver/wms'
 
     eo_options = [
       ("CHIRPS data", "chirps_global_1-month-{month}-{year}_mm_data,africa:g2008_af_1"),
