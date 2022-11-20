@@ -515,7 +515,7 @@ def home(request):
         print('match_timeframe: ' + m_timeframe)
         match_timeframe_options.initial = m_timeframe
 
-        sld_url = "https://chc-ewx2.chc.ucsb.edu/sld/"
+        sld_url = "https://data.rcmrd.org/forcast-viewer/sld/"
 
         if forecast_season == 'long':
           season = "L"
