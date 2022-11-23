@@ -17,7 +17,7 @@ console.log('FORECAST-SHAPEFILE: ', fcast_shapefile);
 var fcast_property = $('#my-attributes').data('forecast-property');
 console.log('FORECAST-PROPERTY: ', fcast_property);
 
-var geoserver_url = 'https://chc-ewx2.chc.ucsb.edu:8443/geoserver';
+var geoserver_url = 'https://data.rcmrd.org/geoserver';
 
 var eo_params = {'LAYERS': eo_layers}
 if (eo_time != undefined) {
