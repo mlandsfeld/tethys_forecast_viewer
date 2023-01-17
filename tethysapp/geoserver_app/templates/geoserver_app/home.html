@@ -98,6 +98,7 @@
                     <td>
                       {% gizmo select_input forecast_select_options %}
                     </td>
+
                     <td>
                       {% gizmo select_input forecast_crops_options %}
                     </td>
@@ -161,6 +162,21 @@
     </form>
   </div>
 
+<!--
+  <div class="container">
+    <div class="dropdown">
+      <button class="btn btn-primary dropdown-toggle" id="menu2" type="button" data-toggle="dropdown">Dropdown Example
+      <span class="caret"></span></button>
+      <ul class="dropdown-menu" role="menu" aria-labelledby="menu2">
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="tooltip" data-target="top" title="Option 1">HTML</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="tooltip" data-target="top" title="Option 2">CSS</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="tooltip" data-target="top" title="Option 3">JavaScript</a></li>
+        <li role="presentation" class="divider"></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">About Us</a></li>
+      </ul>
+    </div>
+  </div>
+-->
 	{% block content_dependent_styles %}
 	  {{ block.super }}
 	  <link href="{% static 'geoserver_app/css/main.css' %}" rel="stylesheet"/>

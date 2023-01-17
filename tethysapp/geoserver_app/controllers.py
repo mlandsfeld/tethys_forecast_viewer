@@ -105,7 +105,7 @@ def home(request):
         multiple=False,
         options=eo_years,
         attributes={"style":"width:75%;"},
-        initial='2021',
+        initial='2022',
         original=True,
     )
 
@@ -129,7 +129,7 @@ def home(request):
         name='eo_months',
         multiple=False,
         options=eo_months,
-        initial='09',
+        initial='05',
         attributes={"style":"width:33%;"},
         original=True
     )
@@ -146,7 +146,7 @@ def home(request):
         name='eo_dekads',
         multiple=False,
         options=eo_dekads,
-        initial='01',
+        initial='03',
         attributes={"style":"width:75%;"},
         original=True
     )
@@ -184,7 +184,7 @@ def home(request):
         name='forecast_layer',
         multiple=False,
         options=forecast_options,
-        attributes={"style":"width:75%;"},
+        attributes={"onmouseup":"display_feature_info();", "style":"width:75%;"},
         original=True
     )
 
@@ -329,7 +329,7 @@ def home(request):
         name='forecast_dekads',
         multiple=False,
         options=forecast_dekads,
-        initial='1',
+        initial='3',
         attributes={"style":"width:50%;"},
         original=True
     )
