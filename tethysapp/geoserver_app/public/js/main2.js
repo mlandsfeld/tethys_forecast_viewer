@@ -257,7 +257,7 @@ xhr.onerror = error;  // call error function if request failed
 var request = geoserver_url + "/wfs?typeNames=" + fcast_shapefile + "&service=wfs&version=1.3.0&request=GetFeature&count=1&outputFormat=json";
 
 console.log('request: ', request);
-xhr.open('GET', request, true); // open a GET request
+xhr.open('GET', request, true); // open a GET request 
 xhr.send(); // send the request to the server.
 
 // -------- Display chosen feature info in...
