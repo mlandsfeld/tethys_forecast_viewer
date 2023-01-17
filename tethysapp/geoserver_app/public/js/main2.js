@@ -257,7 +257,7 @@ xhr.onerror = error;  // call error function if request failed
 var request = geoserver_url + "/wfs?typeNames=" + fcast_shapefile + "&service=wfs&version=1.3.0&request=GetFeature&count=1&outputFormat=json";
 
 console.log('request: ', request);
-xhr.open('GET', request, true); // open a GET request 
+xhr.open('GET', request, true); // open a GET request
 xhr.send(); // send the request to the server.
 
 // -------- Display chosen feature info in...
@@ -339,7 +339,7 @@ function display_feature_info() {
 
 document.getElementById('forecast_layer').onmouseup = function() {
 	console.log('forecast layer onmouseup...');
-	document.getElementById("feature_info").innerHTML = document.getElementById('forecast_layer').value
+	//document.getElementById("feature_info").innerHTML = document.getElementById('forecast_layer').value
 
 };
 
