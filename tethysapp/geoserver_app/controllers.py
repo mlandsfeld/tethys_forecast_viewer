@@ -97,6 +97,8 @@ def home(request):
       ("2020", "2020"),
       ("2021", "2021"),
       ("2022", "2022"),
+      ("2023", "2023"),
+      ("2024", "2024"),
     ]
 
     eo_years_options = SelectInput(
@@ -189,8 +191,8 @@ def home(request):
     )
 
     model_options = [
-      ("ET",  "ET"),
       ("GB",  "GB"),
+      ("ET",  "ET"),
       ("RHEAS",  "RHEAS"),
       ("GeoCIF",  "GeoCIF"),
     ]
@@ -279,6 +281,8 @@ def home(request):
       ("2020", "2020"),
       ("2021", "2021"),
       ("2022", "2022"),
+      ("2023", "2023"),
+      ("2024", "2024"),
     ]
 
     forecast_years_options = SelectInput(
@@ -312,7 +316,7 @@ def home(request):
         name='forecast_months',
         multiple=False,
         options=forecast_months,
-        initial='3',
+        initial='7',
         attributes={"style":"width:50%;"},
         original=True
     )
@@ -356,11 +360,15 @@ def home(request):
         print("no EO map defined")
     eo_map_layers = []
     eo_time = ""
-    forecast_property = '' #remove when done with all datasets
-    forecast_shapefile = ''
+    forecast_property = 'F202273' #remove when done with all datasets
+    forecast_shapefile = 'ag_monitor_maize_GB:L_current_fcast_GB'
+    if request.POST:
+        print("request.POST exists...");
+
 
     # ========  Start POST request processing  ==============
     if request.POST  and 'update_maps' in request.POST:
+    # if 1 == 1:
 
         print("")
         print('In update_maps Post request')
@@ -643,6 +651,7 @@ def home(request):
         legend_title = selected_layer.title()
         print("forecast_legend_url: ", forecast_legend_url)
 
+    # END IF request.POST  and 'update_maps' in request.POST:
 
 
     eo_view_options = MVView(

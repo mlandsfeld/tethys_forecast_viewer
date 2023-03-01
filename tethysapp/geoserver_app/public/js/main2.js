@@ -2,6 +2,11 @@
 
 console.log('In main2.js forecast_viewer...');
 
+// 1 second delay
+// setTimeout(function(){
+//   console.log("Executed after 1 second");
+// }, 3000);
+
 var eo_geoserver_url = $('#my-attributes').data('eo-geoserver-url');
 //console.log('EO GEOSERVER URL: ', eo_geoserver_url);
 
@@ -156,6 +161,17 @@ console.log('Forecast property js: ', forecast_property);
 
 var load_fcast = true;
 
+var select = document.createElement("SELECT");
+console.log("created Select...");
+select.name = "dates";
+select.id = "dates";
+
+select.onchange = function() {
+	console.log("in onmouseup...");
+	choose_date();
+}
+
+
 // Fill in the Available Dates button
 function success() {
 	console.log('success...');
@@ -173,19 +189,20 @@ function success() {
     values.sort();
     values.reverse();
 
-    var select = document.createElement("select");
-    select.name = "dates";
-    select.id = "dates"
+    //var select = document.createElement("select");
+    //select.name = "dates";
+    //select.id = "dates"
 
-    select.onselect = function() {
-      console.log("in select...");
-    }
+    //select.onselect = function() {
+    //  console.log("in select...");
+    //}
 
     for (const val of values)
     {
     	//console.log(val);
     	if (val != 'ADMIN0' && val != 'ADMIN1' && val != 'ADMIN2' && val != 'FNID'
-    		&& val != 'COUNTRY' && val != 'SEASON' && val != 'MODEL' && val != 'PRODUCT') {
+    		&& val != 'COUNTRY' && val != 'SEASON' && val != 'MODEL' && val != 'PRODUCT'
+			  && val != 'bbox') {
 
 				if( val.startsWith('LOF') || val.startsWith("HIF") ) { continue; }
 				//if( val.startsWith('MN_10') || val.startsWith("MN_ALL") ) { continue; }
@@ -235,6 +252,8 @@ function success() {
 
     console.log('Selected value: ', select.value);
 
+		select.value = forecast_property;
+
     if ( ! res.features[0].properties.hasOwnProperty(fcast_property) ) {
       console.log('fcast_property: ', fcast_property);
       document.getElementById("forecast_message").innerHTML = "No data for " + fcast_property;
@@ -254,11 +273,19 @@ var xhr = new XMLHttpRequest(); //invoke a new instance of the XMLHttpRequest
 xhr.onload = success; // call success function if request is successful
 xhr.onerror = error;  // call error function if request failed
 
+
+if (!fcast_shapefile) {
+	fcast_shapefile = "ag_monitor_maize_GB:L_current_fcast_GB";
+};
+
 var request = geoserver_url + "/wfs?typeNames=" + fcast_shapefile + "&service=wfs&version=1.3.0&request=GetFeature&count=1&outputFormat=json";
 
 console.log('request: ', request);
 xhr.open('GET', request, true); // open a GET request
 xhr.send(); // send the request to the server.
+
+
+
 
 // -------- Display chosen feature info in...
 
@@ -338,14 +365,18 @@ function display_feature_info() {
 };
 
 document.getElementById('forecast_layer').onmouseup = function() {
-	console.log('forecast layer onmouseup...');
+	//console.log('forecast layer onmouseup...');
 	//document.getElementById("feature_info").innerHTML = document.getElementById('forecast_layer').value
 
 };
 
-// -------- Choose date button ----------------
 
-document.getElementById('display_date').onclick = function() {
+document.getElementById('display_date').onclick = function() {choose_date()};
+
+
+// -------- Choose date function ----------------
+
+function choose_date() {
 
   var e = document.getElementById("dates");
 	var date = e.options[e.selectedIndex].text;
@@ -478,7 +509,7 @@ map_fcast.on('moveend', onMoveEnd);
 
 map_fcast.on('singleclick', function (evt) {
 
-  var message = 'Doh!';
+  var message = '';
 
   document.getElementById("forecast_message").innerHTML = message;
   document.getElementById("forecast_message").style.color = "black";
