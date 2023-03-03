@@ -107,7 +107,7 @@ def home(request):
         multiple=False,
         options=eo_years,
         attributes={"style":"width:75%;"},
-        initial='2022',
+        initial='2023',
         original=True,
     )
 
@@ -171,14 +171,14 @@ def home(request):
       ("Historical Yield Forecast MAPE", "ET_MAPE"),
       ("Historical Yield Forecast Hindcast", "ET_hind"),
       ("Area", "area"),
-      ("Area mean (10 years)", "area_mean_10yr"),
-      ("Area mean (all years)", "area_mean_all"),
+      ("Area Mean (10 years)", "area_mean_10yr"),
+      ("Area Mean (all years)", "area_mean_all"),
       ("Production", "prod"),
-      ("Production (mean 10 years)", "prod_mean_10yr"),
-      ("Production (mean all years)", "prod_mean_all"),
+      ("Production Mean (10 years)", "prod_mean_10yr"),
+      ("Production Mean (all years)", "prod_mean_all"),
       ("Yield", "yield"),
-      ("Yield (mean 10 years)", "yield_mean_10yr"),
-      ("Yield (mean all years)", "yield_mean_all")
+      ("Yield Mean (10 years)", "yield_mean_10yr"),
+      ("Yield Mean (all years)", "yield_mean_all")
     ]
 
     forecast_select_options = SelectInput(
@@ -231,7 +231,7 @@ def home(request):
         name='forecast_season',
         multiple=False,
         options=forecast_season,
-        initial='1',
+        initial='short',
         attributes={"style":"width:75%;"},
         original=True
     )
@@ -291,7 +291,7 @@ def home(request):
         multiple=False,
         options=forecast_years,
         attributes={"style":"width:75%;"},
-        initial='2022',
+        initial='2023',
         original=True
     )
 
@@ -316,7 +316,7 @@ def home(request):
         name='forecast_months',
         multiple=False,
         options=forecast_months,
-        initial='7',
+        initial='1',
         attributes={"style":"width:50%;"},
         original=True
     )
@@ -360,8 +360,8 @@ def home(request):
         print("no EO map defined")
     eo_map_layers = []
     eo_time = ""
-    forecast_property = 'F202273' #remove when done with all datasets
-    forecast_shapefile = 'ag_monitor_maize_GB:L_current_fcast_GB'
+    forecast_property = 'F202313' #remove when done with all datasets
+    forecast_shapefile = 'ag_monitor_maize_GB:S_current_fcast_GB'
     if request.POST:
         print("request.POST exists...");
 
