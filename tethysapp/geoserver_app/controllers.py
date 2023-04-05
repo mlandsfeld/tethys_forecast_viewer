@@ -42,6 +42,7 @@ def home(request):
       ("Hobbins RefET", "EWX_hobbins_refet_global_1_monthly_data:hobbins_refet_global_1_monthly_data,EWX_shapefile_g2008_af_1:shapefile_g2008_af_1"),
       ("MODIS NDVI", "fews_eviirsndvi_africa_pentad_data:eviirsndvi_africa_pentad_data,fews_shapefile_g2008_af_1:shapefile_g2008_af_1"),
     ]
+    # ewx2
     #("CHIRPS data", "chirps_global_1-month-{month}-{year}_mm_data,africa:g2008_af_1")
     #("CHIRPS anomaly", "chirps_global_1-month-{month}-{year}_mm_anomaly,africa:g2008_af_1"),
     #("CHIRPS z-score", "chirps_global_1-month-{month}-{year}_none_z-score,africa:g2008_af_1"),
@@ -467,22 +468,6 @@ def home(request):
         eo_layers = selected_layer.format(month=month, year=year)
         print('eo_layers: ', eo_layers)
 
-#        eo_geoserver_layer = MVLayer(
-#            source='ImageWMS',
-#            options={
-#                'url': eo_geoserver_url,
-#                'params': eo_layers,
-#                'serverType': 'geoserver'
-#            },
-#            legend_title="",
-#            legend_extent=[-119, 36.5, -109, 42.5],
-#            legend_classes=[
-#              MVLegendImageClass(
-#                value='Precipitation',
-#                image_url=eo_legend_url,
-#              )
-#            ]
-#        )
 
 
         #------- Process forecast model attributes  ----------------
