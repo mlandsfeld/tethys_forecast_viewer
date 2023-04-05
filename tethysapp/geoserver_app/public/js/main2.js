@@ -8,7 +8,7 @@ console.log('In main2.js forecast_viewer...');
 // }, 3000);
 
 var eo_geoserver_url = $('#my-attributes').data('eo-geoserver-url');
-//console.log('EO GEOSERVER URL: ', eo_geoserver_url);
+console.log('EO GEOSERVER URL: ', eo_geoserver_url);
 
 var eo_layers = $('#my-attributes').data('eo-layers');
 console.log('EO LAYERS: ', eo_layers);
@@ -22,7 +22,8 @@ console.log('FORECAST-SHAPEFILE: ', fcast_shapefile);
 var fcast_property = $('#my-attributes').data('forecast-property');
 console.log('FORECAST-PROPERTY: ', fcast_property);
 
-var geoserver_url = 'https://chc-ewx2.chc.ucsb.edu:8443/geoserver';
+var geoserver_url = 'https://ewx3.chc.ucsb.edu:8443/geoserver';
+//var geoserver_url = 'https://chc-ewx2.chc.ucsb.edu:8443/geoserver';
 
 var eo_params = {'LAYERS': eo_layers}
 if (eo_time != undefined) {
@@ -30,12 +31,15 @@ if (eo_time != undefined) {
 }
 console.log('EO_PARAMS: ', eo_params);
 
-var wms_layer = eo_layers.split(',');
-console.log('WMS LAYER: ', wms_layer);
-wms_layer = wms_layer[0];
-console.log('WMS LAYER: ', wms_layer);
+var wms_layers = eo_layers.split(',');
+console.log('WMS LAYERS: ', wms_layers);
+dataset = wms_layers[0].split(':');
+console.log('dataset: ', dataset[1])
+eo_message = dataset[1] + ', ' + eo_time;
+console.log('EO message: ', eo_message);
 
-document.getElementById("eo_message").innerHTML = wms_layer;
+
+document.getElementById("eo_message").innerHTML = eo_message;
 
 
 //  sessionStorage.clear(); //*** resets storage ***
@@ -250,7 +254,8 @@ function success() {
 
     document.getElementById("available_dates").appendChild(label).appendChild(select);
 
-    console.log('Selected value: ', select.value);
+		console.log('Selected value: ', select.value);
+		console.log('fcast_property value: ', fcast_property);
 
 		select.value = forecast_property;
 
@@ -294,82 +299,82 @@ function display_feature_info() {
 	console.log('display_feature_info...', document.getElementById('forecast_layer').value);
   feature = document.getElementById('forecast_layer').value
 
-	if (feature == "ET_current_CI") {
-		document.getElementById("feature_info").innerHTML = "Current Forecast (%): Current forecast expressed as percentage of 10 year mean"
+	if (feature == "current_CI") {
+		document.getElementById("feature_info").innerHTML = "<b>Current Forecast (%):</b> Current forecast expressed as percentage of 10 year mean"
 		document.getElementById("feature_units").innerHTML = "<b>Units:</b> percent of 10 Year Mean"
 	}
-	if (feature == "ET_current_CI_low") {
-		document.getElementById("feature_info").innerHTML = "Current Forecast low (%): Low interval of current forecast"
+	if (feature == "current_CI_low") {
+		document.getElementById("feature_info").innerHTML = "<b>Current Forecast low (%):</b> Low interval of current forecast"
 		document.getElementById("feature_units").innerHTML = "<b>Units:</b> percent of 10 Year Mean"
 	}
-	if (feature == "ET_current_CI_high") {
-		document.getElementById("feature_info").innerHTML = "Current Forecast high (%): High interval of current forecast"
+	if (feature == "current_CI_high") {
+		document.getElementById("feature_info").innerHTML = "<b>Current Forecast high (%):</b> High interval of current forecast"
 		document.getElementById("feature_units").innerHTML = "<b>Units:</b> percent of 10 Year Mean"
 	}
-	if (feature == "ET_Historic_forecast") {
-		document.getElementById("feature_info").innerHTML = "Historical Forecast (%): Historical Yield forecast as percentage of 10 year mean"
+	if (feature == "Historic_forecast") {
+		document.getElementById("feature_info").innerHTML = "<b>Historical Forecast (%):</b> Historical Yield forecast as percentage of 10 year mean"
 		document.getElementById("feature_units").innerHTML = "<b>Units:</b> percent of 10 Year Mean"
 	}
-	if (feature == "ET_forecast") {
-		document.getElementById("feature_info").innerHTML = "Historical Yield Forecast (MT): Historical Yield forecast"
+	if (feature == "forecast") {
+		document.getElementById("feature_info").innerHTML = "<b>Historical Yield Forecast (MT):</b> Historical Yield forecast"
 		document.getElementById("feature_units").innerHTML = "<b>Units:</b> metric tons per hectare"
 	}
-	if (feature == "ET_forecast_err") {
-		document.getElementById("feature_info").innerHTML = "Historical Yield Forecast Error: Forecast Error for a specific year and month.  Derived from historical 1 step-ahead prediction error."
+	if (feature == "forecast_err") {
+		document.getElementById("feature_info").innerHTML = "<b>Historical Yield Forecast Error:</b> Forecast Error for a specific year and month.  Derived from historical 1 step-ahead prediction error."
 		document.getElementById("feature_units").innerHTML = "<b>Units:</b> metric tons per hectare"
 	}
-	if (feature == "ET_MAPE") {
-		document.getElementById("feature_info").innerHTML = "Historical Yield Forecast MAPE: Mean Absolute Percent Error (MAPE) for month when a forecast was made.  Derived from historical 1-step ahead prediction error."
+	if (feature == "MAPE") {
+		document.getElementById("feature_info").innerHTML = "<b>Historical Yield Forecast MAPE:</b> Mean Absolute Percent Error (MAPE) for month when a forecast was made.  Derived from historical 1-step ahead prediction error."
 		document.getElementById("feature_units").innerHTML = "<b>Units:</b> percent (lower is better)"
 	}
-	if (feature == "ET_hind") {
-		document.getElementById("feature_info").innerHTML = "Historical Yield Forecast Hindcast: A forecast for previous year based on the current years model."
+	if (feature == "hind") {
+		document.getElementById("feature_info").innerHTML = "<b>Historical Yield Forecast Hindcast:</b> A forecast for previous year based on the current years model."
 		document.getElementById("feature_units").innerHTML = "<b>Units:</b> metric tons per hectare"
 	}
 	if (feature == "area") {
-		document.getElementById("feature_info").innerHTML = "Area: Observed area harvested for a given year and season."
+		document.getElementById("feature_info").innerHTML = "<b>Area:</b> Observed area harvested for a given year and season."
 		document.getElementById("feature_units").innerHTML = "<b>Units:</b> hectares"
 	}
 	if (feature == "area_mean_10yr") {
-		document.getElementById("feature_info").innerHTML = "Area Mean (10 years): Mean area harvested over the most recent (observed) 10 years."
+		document.getElementById("feature_info").innerHTML = "<b>Area Mean (10 years):</b> Mean area harvested over the most recent (observed) 10 years."
 		document.getElementById("feature_units").innerHTML = "<b>Units:</b> hectares"
 	}
 	if (feature == "area_mean_all") {
-		document.getElementById("feature_info").innerHTML = "Area Mean (all years): Mean area harvested over all observed years."
+		document.getElementById("feature_info").innerHTML = "<b>Area Mean (all years):</b> Mean area harvested over all observed years."
 		document.getElementById("feature_units").innerHTML = "<b>Units:</b> hectares"
 	}
 	if (feature == "prod") {
-		document.getElementById("feature_info").innerHTML = "Production: Observed production for a given year and season."
+		document.getElementById("feature_info").innerHTML = "<b>Production:</b> Observed production for a given year and season."
 		document.getElementById("feature_units").innerHTML = "<b>Units:</b> metric tons"
 	}
 	if (feature == "prod_mean_10yr") {
-		document.getElementById("feature_info").innerHTML = "Production Mean (10 years): Mean production over the most recent (observed) 10 years."
+		document.getElementById("feature_info").innerHTML = "<b>Production Mean (10 years):</b> Mean production over the most recent (observed) 10 years."
 		document.getElementById("feature_units").innerHTML = "<b>Units:</b> metric tons"
 	}
 	if (feature == "prod_mean_all") {
-		document.getElementById("feature_info").innerHTML = "Production Mean (all years): Mean production over all observed years."
+		document.getElementById("feature_info").innerHTML = "<b>Production Mean (all years):</b> Mean production over all observed years."
 		document.getElementById("feature_units").innerHTML = "<b>Units:</b> metric tons"
 	}
 	if (feature == "yield") {
-		document.getElementById("feature_info").innerHTML = "Yield: Observed yield for a given year and season."
+		document.getElementById("feature_info").innerHTML = "<b>Yield:</b> Observed yield for a given year and season."
 		document.getElementById("feature_units").innerHTML = "<b>Units:</b> metric tons per hectare"
 	}
 	if (feature == "yield_mean_10yr") {
-		document.getElementById("feature_info").innerHTML = "Yield Mean (10 year): Mean yield over the most recent (observed) 10 years."
+		document.getElementById("feature_info").innerHTML = "<b>Yield Mean (10 year):</b> Mean yield over the most recent (observed) 10 years."
 		document.getElementById("feature_units").innerHTML = "<b>Units:</b> metric tons per hectare"
 	}
 	if (feature == "yield_mean_all") {
-		document.getElementById("feature_info").innerHTML = "Yield Mean (all years): Mean yield over all observed years."
+		document.getElementById("feature_info").innerHTML = "<b>Yield Mean (all years):</b> Mean yield over all observed years."
 		document.getElementById("feature_units").innerHTML = "<b>Units:</b> metric tons per hectare"
 	}
 
 };
 
-document.getElementById('forecast_layer').onmouseup = function() {
+//document.getElementById('forecast_layer').onmouseup = function() {
 	//console.log('forecast layer onmouseup...');
 	//document.getElementById("feature_info").innerHTML = document.getElementById('forecast_layer').value
 
-};
+//};
 
 
 document.getElementById('display_date').onclick = function() {choose_date()};
@@ -453,35 +458,6 @@ function choose_date() {
 
 } // ------- end set date ----------------
 
-
-if (load_fcast) {
-	console.log('loading forecast...');
-	var fcast_source = new ol.source.ImageWMS({
-	  url: geoserver_url + '/wms',
-	  params: {'SLD': forecast_sld_file},
-	  serverType: 'geoserver',
-	});
-
-	var map_fcast = new ol.Map({
-	  target: 'map_fcast',
-		controls: ol.control.defaults({
-	    zoom: true,
-	    attribution: false,
-	    rotate: false
-	  }),
-	  layers: [
-		new ol.layer.Tile({
-		  source: new ol.source.OSM(),
-		}),
-		new ol.layer.Image({
-		  source: fcast_source,
-		}),
-	  ],
-	  view: map_view
-	});
-};
-
-
 var center_coords;
 
 function onMoveEnd(evt) {
@@ -502,8 +478,40 @@ function onMoveEnd(evt) {
 	//console.log('mv retrieved: ', mv_center_lon, mv_center_lat, mv_zoom);
 };
 
-map_fcast.on('moveend', onMoveEnd);
 
+
+
+load_fcast = true;
+
+if (load_fcast) {
+	console.log('loading forecast...');
+	var fcast_source = new ol.source.ImageWMS({
+	  url: geoserver_url + '/wms',
+	  params: {'SLD': forecast_sld_file},
+	  serverType: 'geoserver',
+	});
+  console.log('SLD: ', forecast_sld_file);
+
+	var map_fcast = new ol.Map({
+	  target: 'map_fcast',
+		controls: ol.control.defaults({
+	    zoom: true,
+	    attribution: false,
+	    rotate: false
+	  }),
+	  layers: [
+		new ol.layer.Tile({
+		  source: new ol.source.OSM(),
+		}),
+		new ol.layer.Image({
+		  source: fcast_source,
+		}),
+	  ],
+	  view: map_view
+	});
+};
+
+map_fcast.on('moveend', onMoveEnd);
 
 //map_fcast.on('moveend', function (evt) {
 //	console.log("in moveend...");

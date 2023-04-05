@@ -9,9 +9,9 @@ from tethys_sdk.gizmos import *
 from .app import GeoserverApp as app
 from tethys_sdk.gizmos import MapView
 
-WORKSPACE = 'geoserver_app'
+#WORKSPACE = 'geoserver_app'
 #GEOSERVER_URI = 'https://chc-ewx2.chc.ucsb.edu:8443/geoserver-app'
-GEOSERVER_URI = 'http://www.example.com/geoserver-app'
+#GEOSERVER_URI = 'http://www.example.com/geoserver-app'
 
 @csrf_exempt
 @login_required()
@@ -26,22 +26,31 @@ def home(request):
 
     #-----------------------------
 
-    eo_layers = "chirps_global_1-month-07-2016_mm_data,africa:g2008_af_1"
-    eo_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/precip_monthly_data_raster.png'
-    geoe5_time='2021-08-11'
-    eo_geoserver_url = 'https://chc-ewx2.chc.ucsb.edu:8443/geoserver/wms'
+    eo_layers = "chirps_global_1-month-01-2023_mm_data,africa:g2008_af_1"
+    eo_layers = "EWX_chirps_global_1_monthly_data:chirps_global_1_monthly_data,EWX_shapefile_g2008_af_1:shapefile_g2008_af_1"
+    eo_legend_url='https://chc-ewx3.chc.ucsb.edu/legends/precip_monthly_data_raster.png'
+    eo_geoserver_url = 'https://chc-ewx3.chc.ucsb.edu:8443/geoserver/wms'
 
     eo_options = [
-      ("CHIRPS data", "chirps_global_1-month-{month}-{year}_mm_data,africa:g2008_af_1"),
-      ("CHIRPS anomaly", "chirps_global_1-month-{month}-{year}_mm_anomaly,africa:g2008_af_1"),
-      ("CHIRPS z-score", "chirps_global_1-month-{month}-{year}_none_z-score,africa:g2008_af_1"),
-      ("LST Data", "lst_global_1-month-{month}-{year}_C_data,africa:g2008_af_1"),
-      ("LST Anomaly", "lst_global_1-month-{month}-{year}_C_anomaly,africa:g2008_af_1"),
-      ("LST Z-score", "lst_global_1-month-{month}-{year}_none_z-score,africa:g2008_af_1"),
-      ("CHIRTSmax", "chirtsmax_global_1-month-{month}-{year}_mm_data,africa:g2008_af_1"),
-      ("Hobbins RefET", "hobbinset_global_1-month-{month}-{year}_mm_data,africa:g2008_af_1"),
-      ("MODIS NDVI", "fews_emodisndvic6v2_africa_dekad_data:emodisndvic6v2_africa_dekad_data,fews_shapefile_g2008_af_1:shapefile_g2008_af_1"),
+      ("CHIRPS Data", "EWX_chirps_global_1_monthly_data:chirps_global_1_monthly_data,EWX_shapefile_g2008_af_1:shapefile_g2008_af_1"),
+      ("CHIRPS Anomaly", "EWX_chirps_global_1_monthly_anom:chirps_global_1_monthly_anom,EWX_shapefile_g2008_af_1:shapefile_g2008_af_1"),
+      ("CHIRPS Z-score", "EWX_chirps_global_1_monthly_zscore:chirps_global_1_monthly_zscore,EWX_shapefile_g2008_af_1:shapefile_g2008_af_1"),
+      ("LST Data", "EWX_lst006_global_1_monthly_data:lst006_global_1_monthly_data,EWX_shapefile_g2008_af_1:shapefile_g2008_af_1"),
+      ("LST Anomaly", "EWX_lst006_global_1_monthly_anom:lst006_global_1_monthly_anom,EWX_shapefile_g2008_af_1:shapefile_g2008_af_1"),
+      ("LST Z-score", "EWX_lst006_global_1_monthly_zscore:lst006_global_1_monthly_zscore,EWX_shapefile_g2008_af_1:shapefile_g2008_af_1"),
+      ("CHIRTSmax", "EWX_chirtsmax_global_1_monthly_data:chirtsmax_global_1_monthly_data,EWX_shapefile_g2008_af_1:shapefile_g2008_af_1"),
+      ("Hobbins RefET", "EWX_hobbins_refet_global_1_monthly_data:hobbins_refet_global_1_monthly_data,EWX_shapefile_g2008_af_1:shapefile_g2008_af_1"),
+      ("MODIS NDVI", "fews_eviirsndvi_africa_pentad_data:eviirsndvi_africa_pentad_data,fews_shapefile_g2008_af_1:shapefile_g2008_af_1"),
     ]
+    #("CHIRPS data", "chirps_global_1-month-{month}-{year}_mm_data,africa:g2008_af_1")
+    #("CHIRPS anomaly", "chirps_global_1-month-{month}-{year}_mm_anomaly,africa:g2008_af_1"),
+    #("CHIRPS z-score", "chirps_global_1-month-{month}-{year}_none_z-score,africa:g2008_af_1"),
+    #("LST Data", "lst_global_1-month-{month}-{year}_C_data,africa:g2008_af_1"),
+    #("LST Anomaly", "lst_global_1-month-{month}-{year}_C_anomaly,africa:g2008_af_1"),
+    #("LST Z-score", "lst_global_1-month-{month}-{year}_none_z-score,africa:g2008_af_1"),
+    #("CHIRTSmax", "chirtsmax_global_1-month-{month}-{year}_mm_data,africa:g2008_af_1"),
+    #("Hobbins RefET", "hobbinset_global_1-month-{month}-{year}_mm_data,africa:g2008_af_1"),
+    #("MODIS NDVI", "fews_emodisndvic6v2_africa_dekad_data:emodisndvic6v2_africa_dekad_data,fews_shapefile_g2008_af_1:shapefile_g2008_af_1"),
 
     eo_select_options = SelectInput(
         display_text='Choose Earth Observation',
@@ -158,18 +167,18 @@ def home(request):
 
 
     forecast_layer = "L_fcast_MAPE_ET"
-    forecast_sld_file = "https://chc-ewx2.chc.ucsb.edu/sld/DEFAULT.SLD/NO_MATCH_FOUND"
-    forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield.png'
+    forecast_sld_file = "https://chc-ewx3.chc.ucsb.edu/sld/DEFAULT.SLD/NO_MATCH_FOUND"
+    forecast_legend_url='https://chc-ewx3.chc.ucsb.edu/images/legends/crop_yield.png'
 
     forecast_options = [
-      ("Current Forecast (%)",  "ET_current_CI"),
-      ("Current Forecast low (%)",  "ET_current_CI_low"),
-      ("Current Forecast high (%)",  "ET_current_CI_high"),
-      ("Historical Forecast (%)",  "ET_Historic_forecast"),
-      ("Historical Yield Forecast (MT)",  "ET_forecast"),
-      ("Historical Yield Forecast Error", "ET_forecast_err"),
-      ("Historical Yield Forecast MAPE", "ET_MAPE"),
-      ("Historical Yield Forecast Hindcast", "ET_hind"),
+      ("Current Forecast (%)",  "current_CI"),
+      ("Current Forecast low (%)",  "current_CI_low"),
+      ("Current Forecast high (%)",  "current_CI_high"),
+      ("Historical Forecast (%)",  "Historic_forecast"),
+      ("Historical Yield Forecast (MT)",  "forecast"),
+      ("Historical Yield Forecast Error", "forecast_err"),
+      ("Historical Yield Forecast MAPE", "MAPE"),
+      ("Historical Yield Forecast Hindcast", "hind"),
       ("Area", "area"),
       ("Area Mean (10 years)", "area_mean_10yr"),
       ("Area Mean (all years)", "area_mean_all"),
@@ -356,7 +365,7 @@ def home(request):
 
     #-----------------------------
 
-    if not "eo_map_layers" in locals():
+    if not " " in locals():
         print("no EO map defined")
     eo_map_layers = []
     eo_time = ""
@@ -407,43 +416,52 @@ def home(request):
             dekad = request.POST['eo_dekads']
         eo_dekads_options.initial=dekad
 
-        eo_geoserver_url = 'https://chc-ewx2.chc.ucsb.edu:8443/geoserver/wms'
+        #eo_geoserver_url = 'https://chc-ewx2.chc.ucsb.edu:8443/geoserver/wms'
+        eo_geoserver_url = 'https://chc-ewx3.chc.ucsb.edu:8443/geoserver/wms'
+
+        #legends_url = 'https://chc-ewx2.chc.ucsb.edu/images/legends/'
+        legends_url = 'https://ewx3.chc.ucsb.edu/legends/'
+        print('Legends URL: ', legends_url)
+
         if 'fews_emodis' in selected_layer:
-        	eo_geoserver_url = 'https://dmsdata.cr.usgs.gov/geoserver/wms'
-        print('eo_geoserver_url: ', eo_geoserver_url)
+        	eo_geoserver_url = 'https://dmsdata.cr.usgs.gov/geoserver/gwc/service/wms'
 
         if 'data' in selected_layer:
             print('Data legend')
-            eo_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/precip_monthly_data_raster.png'
-        if 'anomaly' in selected_layer:
+            eo_legend_url=f"{legends_url}precip_monthly_data_raster.png"
+        if 'anom' in selected_layer:
             print('Anomaly legend')
-            eo_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/precip_monthly_anom_raster.png'
-        if 'z-score' in selected_layer:
+            eo_legend_url=f"{legends_url}precip_monthly_anom_raster.png"
+        if 'zscore' in selected_layer:
             print('Z-score legend')
-            eo_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/precip_zscore_raster.png'
+            eo_legend_url=f"{legends_url}precip_zscore_raster.png"
         if 'chirtsmax' in selected_layer:
             if 'data' in selected_layer:
-                eo_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/temperature.png'
-            if 'anomaly' in selected_layer:
-                eo_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/temperature_anom.png'
+                eo_legend_url=f"{legends_url}temperature.png"
+            if 'anom' in selected_layer:
+                eo_legend_url=f"{legends_url}temperature_anom.png"
             if 'zscore' in selected_layer:
-                eo_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/temperature_zscore.png'
-        if 'lst_global' in selected_layer:
+                eo_legend_url=f"{legends_url}temperature_zscore.png"
+        if 'lst006_global' in selected_layer:
             if 'data' in selected_layer:
-                eo_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/temperature.png'
-            if 'anomaly' in selected_layer:
-                eo_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/temperature_anom.png'
+                eo_legend_url=f"{legends_url}temperature.png"
+            if 'anom' in selected_layer:
+                eo_legend_url=f"{legends_url}temperature_anom.png"
             if 'z-score' in selected_layer:
-                eo_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/temperature_zscore.png'
-        if 'hobbinset' in selected_layer:
+                eo_legend_url=f"{legends_url}temperature_zscore.png"
+        if 'hobbins_refet' in selected_layer:
             if 'data' in selected_layer:
-                eo_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/refet0_monthly_data_raster.png'
+                eo_legend_url=f"{legends_url}refet0_monthly_data_raster.png"
         if 'ndvi' in selected_layer:
             if 'data' in selected_layer:
-                eo_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/ndvi_data.png'
+                eo_legend_url=f"{legends_url}ndvi_data.png"
                 eo_geoserver_url = 'https://dmsdata.cr.usgs.gov/geoserver/wms'
 
-        eo_time = f"{year}-{month}-{dekad}"
+        print('eo_legend_url: ', eo_legend_url)
+        print('eo_geoserver_url: ', eo_geoserver_url)
+
+        #eo_time = f"{year}-{month}-{dekad}" #ewx2
+        eo_time = f"{year}-{month}-01"
         print("EO time: " + eo_time)
 
         eo_layers = selected_layer.format(month=month, year=year)
@@ -523,7 +541,8 @@ def home(request):
         print('match_timeframe: ' + m_timeframe)
         match_timeframe_options.initial = m_timeframe
 
-        sld_url = "https://chc-ewx2.chc.ucsb.edu/sld/"
+        #sld_url = "https://chc-ewx2.chc.ucsb.edu/sld/"
+        sld_url = "https://ewx3.chc.ucsb.edu/sld/"
 
         if forecast_season == 'long':
           season = "L"
@@ -538,117 +557,117 @@ def home(request):
         print('crop_dir: ' + crop_dir)
 
 
-        if selected_layer == "ET_current_CI":
+        if selected_layer == "current_CI":
           forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_current_fcast{shape_model}"
           forecast_sld_file = f"{sld_url}{forecast_model}_cur_CI/{crop}/{season}{shape_model}_cur_CI_{year}{month}{dekad}.sld"
-          forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield_ci.png'
+          forecast_legend_url=f"{legends_url}crop_yield_ci.png"
           forecast_property = f"F{year}{month}{dekad}"
           print("forecast_shapefile: ", forecast_shapefile)
 
-        if selected_layer == "ET_current_CI_low":
+        if selected_layer == "current_CI_low":
           forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_current_fcast{shape_model}"
           forecast_sld_file = f"{sld_url}{forecast_model}_cur_CI/{crop}/{season}{shape_model}_cur_CI_lo_{year}{month}{dekad}.sld"
-          forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield_ci.png'
+          forecast_legend_url=f"{legends_url}crop_yield_ci.png"
           forecast_property = f"LOF{year}{month}{dekad}"
           print("forecast_shapefile: ", forecast_shapefile)
 
-        if selected_layer == "ET_current_CI_high":
+        if selected_layer == "current_CI_high":
           forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_current_fcast{shape_model}"
           forecast_sld_file = f"{sld_url}{forecast_model}_cur_CI/{crop}/{season}{shape_model}_cur_CI_hi_{year}{month}{dekad}.sld"
-          forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield_ci.png'
+          forecast_legend_url=f"{legends_url}crop_yield_ci.png"
           forecast_property = f"HIF{year}{month}{dekad}"
 
-        if selected_layer == "ET_Historic_forecast":
+        if selected_layer == "Historic_forecast":
           forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_fcast{shape_model}_percent"
           forecast_sld_file = f"{sld_url}{forecast_model}_fcast_pcnt/{crop}/{season}{shape_model}_pcnt_{year}{month}{dekad}.sld"
-          forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield_ci.png'
+          forecast_legend_url=f"{legends_url}crop_yield_ci.png"
           forecast_property = f"F{year}{month}{dekad}"
           print("forecast_shapefile: ", forecast_shapefile)
 
-        if selected_layer == "ET_forecast":
+        if selected_layer == "forecast":
           forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_fcast{shape_model}"
           forecast_sld_file = f"{sld_url}{forecast_model}_fcast/{crop}/{season}{shape_model}_fcast_{year}{month}{dekad}.sld"
-          forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield1.png'
+          forecast_legend_url=f"{legends_url}crop_yield1.png"
           forecast_property = f"F{year}{month}{dekad}"
 
-        if selected_layer == "ET_forecast_err":
+        if selected_layer == "forecast_err":
           forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_fcast_error{shape_model}"
           forecast_sld_file = f"{sld_url}{forecast_model}_error/{crop}/{season}{shape_model}_err_{year}{month}{dekad}.sld"
-          forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield_error.png'
+          forecast_legend_url=f"{legends_url}crop_yield_error.png"
           forecast_property = f"E{year}{month}{dekad}"
 
-        if selected_layer == "ET_MAPE":
+        if selected_layer == "MAPE":
           forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_fcast_MAPE{shape_model}"
           forecast_sld_file = f"{sld_url}{forecast_model}_MAPE/{crop}/{season}{shape_model}_MAPE_{month}_{dekad}.sld"
-          forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield_MAPE.png'
+          forecast_legend_url=f"{legends_url}crop_yield_MAPE.png"
           forecast_property = f"MP_{month}_{dekad}"
 
-        if selected_layer == "ET_hind":
+        if selected_layer == "hind":
           forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_fcast{shape_model}_HIND"
           forecast_sld_file = f"{sld_url}{forecast_model}_fcast_HIND/{crop}/{season}{shape_model}_HIND_{year}{month}{dekad}.sld"
-          forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield1.png'
+          forecast_legend_url=f"{legends_url}crop_yield1.png"
           forecast_property = f"F{year}{month}{dekad}"
 
 
         if selected_layer == "area":
           forecast_shapefile = f"ag_monitor_{crop}:{season}_area"
           forecast_sld_file = f"{sld_url}area/{crop}/area_{season}{year}.sld"
-          forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_area.png'
+          forecast_legend_url=f"{legends_url}crop_area.png"
           forecast_property = f"O{year}"
 
         if selected_layer == "area_mean_10yr":
           forecast_shapefile = f"ag_monitor_{crop}:{season}_area_mn"
           forecast_sld_file = f"{sld_url}area/{crop}/{season}_area_mean_10yr.sld"
-          forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_area.png'
+          forecast_legend_url=f"{legends_url}crop_area.png"
           forecast_property = "MN_10"
 
         if selected_layer == "area_mean_all":
           forecast_shapefile = f"ag_monitor_{crop}:{season}_area_mn"
           forecast_sld_file = f"{sld_url}area/{crop}/{season}_area_mean_all.sld"
-          forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_area.png'
+          forecast_legend_url=f"{legends_url}crop_area.png"
           forecast_property = "MN_ALL"
 
         if selected_layer == "prod":
           forecast_shapefile = f"ag_monitor_{crop}:{season}_prod"
           forecast_sld_file = f"{sld_url}prod/{crop}/{season}_prod_{year}.sld"
-          forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_prod.png'
+          forecast_legend_url=f"{legends_url}crop_prod.png"
           forecast_property = f"O{year}"
 
         if selected_layer == "prod_mean_10yr":
           forecast_shapefile = f"ag_monitor_{crop}:{season}_prod_mn"
           forecast_sld_file = f"{sld_url}prod/{crop}/{season}_prod_mean_10yr.sld"
-          forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_prod.png'
+          forecast_legend_url=f"{legends_url}crop_prod.png"
           forecast_property = "MN_10"
 
         if selected_layer == "prod_mean_all":
           forecast_shapefile = f"ag_monitor_{crop}:{season}_prod_mn"
           forecast_sld_file = f"{sld_url}prod/{crop}/{season}_prod_mean_all.sld"
-          forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_prod.png'
+          forecast_legend_url=f"{legends_url}crop_prod.png"
           forecast_property = "MN_ALL"
 
         if selected_layer == "yield":
           forecast_shapefile = f"ag_monitor_{crop}:{season}_yield"
           forecast_sld_file = f"{sld_url}yield/{crop}/{season}_yield_{year}.sld"
-          forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield1.png'
+          forecast_legend_url=f"{legends_url}crop_yield1.png"
           forecast_property = f"O{year}"
 
         if selected_layer == "yield_mean_10yr":
           forecast_shapefile = f"ag_monitor_{crop}:{season}_yield_mn"
           forecast_sld_file = f"{sld_url}yield/{crop}/{season}_yield_mean_10yr.sld"
-          forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield1.png'
+          forecast_legend_url=f"{legends_url}crop_yield1.png"
           forecast_property = "MN_10"
 
         if selected_layer == "yield_mean_all":
           forecast_shapefile = f"ag_monitor_{crop}:{season}_yield_mn"
           forecast_sld_file = f"{sld_url}yield/{crop}/{season}_yield_mean_all.sld"
-          forecast_legend_url='https://chc-ewx2.chc.ucsb.edu/images/legends/crop_yield1.png'
+          forecast_legend_url=f"{legends_url}crop_yield1.png"
           forecast_property = "MN_ALL"
 
         #forecast_sld_file = f"https://chc-ewx2.chc.ucsb.edu/sld/yield_ET_err_long_{year}{month}{dekad}.sld"
         print("SLD file: ", forecast_sld_file)
         print("forecast_property: ", forecast_property)
         print("forecast_shapefile: ", forecast_shapefile)
-        legend_title = selected_layer.title()
+        #legend_title = selected_layer.title()
         print("forecast_legend_url: ", forecast_legend_url)
 
     # END IF request.POST  and 'update_maps' in request.POST:
