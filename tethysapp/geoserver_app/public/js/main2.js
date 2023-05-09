@@ -377,7 +377,7 @@ function display_feature_info() {
 //};
 
 
-document.getElementById('display_date').onclick = function() {choose_date()};
+//document.getElementById('display_date').onclick = function() {choose_date()};
 
 
 // -------- Choose date function ----------------

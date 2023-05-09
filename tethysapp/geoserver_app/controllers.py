@@ -180,6 +180,7 @@ def home(request):
       ("Historical Yield Forecast Error", "forecast_err"),
       ("Historical Yield Forecast MAPE", "MAPE"),
       ("Historical Yield Forecast Hindcast", "hind"),
+      ("Historical Yield Forecast Hindcast %", "hind_perc"),
       ("Area", "area"),
       ("Area Mean (10 years)", "area_mean_10yr"),
       ("Area Mean (all years)", "area_mean_all"),
@@ -591,6 +592,13 @@ def home(request):
           forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_fcast{shape_model}_HIND"
           forecast_sld_file = f"{sld_url}{forecast_model}_fcast_HIND/{crop}/{season}{shape_model}_HIND_{year}{month}{dekad}.sld"
           forecast_legend_url=f"{legends_url}crop_yield1.png"
+          forecast_property = f"F{year}{month}{dekad}"
+
+
+        if selected_layer == "hind_perc":
+          forecast_shapefile = f"ag_monitor_{crop}{fcast_model}:{season}_fcast{shape_model}_HIND_percent"
+          forecast_sld_file = f"{sld_url}{forecast_model}_fcast_HIND_percent/{crop}/{season}{shape_model}_HIND_pcnt_{year}{month}{dekad}.sld"
+          forecast_legend_url=f"{legends_url}crop_yield_ci.png"
           forecast_property = f"F{year}{month}{dekad}"
 
 
